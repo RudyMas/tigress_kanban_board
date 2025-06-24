@@ -1,4 +1,156 @@
 {% extends 'base.twig' %}
+{% set translations_ek_250624 = {
+    'nl': {
+        'add': 'Toevoegen',
+        'cancel': 'Annuleren',
+        'description': 'Omschrijving',
+        'edit': 'Aanpassen',
+        'end_date': 'Einddatum',
+        'kanban_board': 'Kanbanbord',
+        'kanban_boards': 'Kanbanborden',
+        'product_owners': 'Product Eigenaar(s)',
+        'project_name': 'Project Naam',
+        'save': 'Opslaan',
+        'start_date': 'Startdatum',
+        'status': 'Status',
+        'team_members': 'Teamleden',
+        'tile': 'Tegel',
+
+        'archive': 'Archief',
+        'archive_kanban_board': 'Kanbanbord archiveren',
+        'archive_kanban_board_message': 'Weet u zeker dat u dit kanbanbord wilt archiveren?',
+        'archiving': 'Archiveren',
+        'close': 'Sluiten',
+        'restore': 'Herstellen',
+        'restore_kanban_board': 'Kanbanbord herstellen',
+        'restore_kanban_board_message': 'Weet u zeker dat u dit kanbanbord wilt herstellen?',
+    },
+    'fr': {
+        'add': 'Ajouter',
+        'cancel': 'Annuler',
+        'description': 'Description',
+        'edit': 'Modifier',
+        'end_date': 'Date de fin',
+        'kanban_board': 'Tableau Kanban',
+        'kanban_boards': 'Tableaux Kanban',
+        'product_owners': 'Propriétaire(s) du produit',
+        'project_name': 'Nom du projet',
+        'save': 'Enregistrer',
+        'start_date': 'Date de début',
+        'status': 'Statut',
+        'team_members': 'Membres de l\'équipe',
+        'tile': 'Tuile',
+
+        'archive': 'Archive',
+        'archive_kanban_board': 'Archiver le tableau Kanban',
+        'archive_kanban_board_message': 'Êtes-vous sûr de vouloir archiver ce tableau Kanban ?',
+        'archiving': 'Archivage',
+        'close': 'Fermer',
+        'restore': 'Restaurer',
+        'restore_kanban_board': 'Restaurer le tableau Kanban',
+        'restore_kanban_board_message': 'Êtes-vous sûr de vouloir restaurer ce tableau Kanban ?',
+    },
+    'de': {
+        'add': 'Hinzufügen',
+        'cancel': 'Abbrechen',
+        'description': 'Beschreibung',
+        'edit': 'Bearbeiten',
+        'end_date': 'Enddatum',
+        'kanban_board': 'Kanban Board',
+        'kanban_boards': 'Kanban Boards',
+        'product_owners': 'Produktverantwortliche',
+        'project_name': 'Projektname',
+        'save': 'Speichern',
+        'start_date': 'Startdatum',
+        'status': 'Status',
+        'team_members': 'Teammitglieder',
+        'tile': 'Kachel',
+
+        'archive': 'Archiv',
+        'archive_kanban_board': 'Kanban Board archivieren',
+        'archive_kanban_board_message': 'Sind Sie sicher, dass Sie dieses Kanban Board archivieren möchten?',
+        'archiving': 'Archivieren',
+        'close': 'Schließen',
+        'restore': 'Wiederherstellen',
+        'restore_kanban_board': 'Kanban Board wiederherstellen',
+        'restore_kanban_board_message': 'Sind Sie sicher, dass Sie dieses Kanban Board wiederherstellen möchten?',
+    },
+    'es': {
+        'add': 'Agregar',
+        'cancel': 'Cancelar',
+        'description': 'Descripción',
+        'edit': 'Editar',
+        'end_date': 'Fecha de finalización',
+        'kanban_board': 'Tablero Kanban',
+        'kanban_boards': 'Tableros Kanban',
+        'product_owners': 'Propietario(s) del producto',
+        'project_name': 'Nombre del proyecto',
+        'save': 'Guardar',
+        'start_date': 'Fecha de inicio',
+        'status': 'Estado',
+        'team_members': 'Miembros del equipo',
+        'tile': 'Mosaico',
+
+        'archive': 'Archivo',
+        'archive_kanban_board': 'Archivar tablero Kanban',
+        'archive_kanban_board_message': '¿Está seguro de que desea archivar este tablero Kanban?',
+        'archiving': 'Archivando',
+        'close': 'Cerrar',
+        'restore': 'Restaurar',
+        'restore_kanban_board': 'Restaurar tablero Kanban',
+        'restore_kanban_board_message': '¿Está seguro de que desea restaurar este tablero Kanban?',
+    },
+    'it': {
+        'add': 'Aggiungi',
+        'cancel': 'Annulla',
+        'description': 'Descrizione',
+        'edit': 'Modifica',
+        'end_date': 'Data di fine',
+        'kanban_board': 'Bacheca Kanban',
+        'kanban_boards': 'Bacheche Kanban',
+        'product_owners': 'Proprietario(i) del Prodotto',
+        'project_name': 'Nome del Progetto',
+        'save': 'Salva',
+        'start_date': 'Data di inizio',
+        'status': 'Stato',
+        'team_members': 'Membri del Team',
+        'tile': 'Piastrella',
+
+        'archive': 'Archivio',
+        'archive_kanban_board': 'Archivia Bacheca Kanban',
+        'archive_kanban_board_message': 'Sei sicuro di voler archiviare questa bacheca Kanban?',
+        'archiving': 'Archiviazione',
+        'close': 'Chiudi',
+        'restore': 'Ripristina',
+        'restore_kanban_board': 'Ripristina Bacheca Kanban',
+        'restore_kanban_board_message': 'Sei sicuro di voler ripristinare questa bacheca Kanban?',
+    },
+    'en': {
+        'add': 'Add',
+        'cancel': 'Cancel',
+        'description': 'Description',
+        'edit': 'Edit',
+        'end_date': 'End Date',
+        'kanban_board': 'Kanban Board',
+        'kanban_boards': 'Kanban Boards',
+        'product_owners': 'Product Owner(s)',
+        'project_name': 'Project Name',
+        'save': 'Save',
+        'start_date': 'Start Date',
+        'status': 'Status',
+        'team_members': 'Team Members',
+        'tile': 'Tile',
+
+        'archive': 'Archive',
+        'archive_kanban_board': 'Archive Kanban Board',
+        'archive_kanban_board_message': 'Are you sure you want to archive this Kanban board?',
+        'archiving': 'Archiving',
+        'close': 'Close',
+        'restore': 'Restore',
+        'restore_kanban_board': 'Restore Kanban Board',
+        'restore_kanban_board_message': 'Are you sure you want to restore this Kanban board?',
+    }
+} %}
 {% block css %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/kanban-board/public/css/kanban/edit_kanban.css">
@@ -9,16 +161,15 @@
     <script src="{{ BASE_URL }}/node_modules/tinymce/themes/silver/theme.min.js"></script>
     <script src="{{ BASE_URL }}/vendor/tigress/kanban-board/public/javascript/kanban/edit_kanban.js"></script>
 {% endblock %}
-{% block title %}Kanbanbord {% if kanban.id == 0 %}Toevoegen{% else %}Aanpassen{% endif %}{% endblock %}
+{% block title %}{{ trans('kanban_board', translations_ek_250624) }} {% if kanban.id == 0 %}{{ trans('add', translations_ek_250624) }}{% else %}{{ trans('edit', translations_ek_250624) }}{% endif %}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban">Kanbanborden</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                        Kanbanbord {% if kanban.id == 0 %}Toevoegen{% else %}Aanpassen{% endif %}</li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban">{{ trans('kanban_boards', translations_ek_250624) }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ trans('kanban_board', translations_ek_250624) }} {% if kanban.id == 0 %}{{ trans('add', translations_ek_250624) }}{% else %}{{ trans('edit', translations_ek_250624) }}{% endif %}</li>
                 </ol>
             </nav>
         </div>
@@ -28,7 +179,7 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-sm-4">
-                <h3>Kanbanbord {% if kanban.id == 0 %}Toevoegen{% else %}Aanpassen{% endif %}</h3>
+                <h3>{{ trans('kanban_board', translations_ek_250624) }} {% if kanban.id == 0 %}{{ trans('add', translations_ek_250624) }}{% else %}{{ trans('edit', translations_ek_250624) }}{% endif %}</h3>
             </div>
             <div class="col-sm-4">
             </div>
@@ -44,75 +195,63 @@
                                 <input type="hidden" name="id" value="{{ kanban.id }}">
                                 <div class="row mb-2">
                                     <div class="col-md-6">
-                                        <label for="naam">Project Naam</label>
-                                        <input type="text" class="form-control" id="naam" name="naam"
-                                               value="{{ kanban.naam }}" required>
+                                        <label for="naam">{{ trans('project_name', translations_ek_250624) }}</label>
+                                        <input type="text" class="form-control" id="name" name="name"
+                                               value="{{ kanban.name }}" required>
                                     </div>
                                     <div class="col-md-4">
-                                        <label for="tegel">Tegel</label>
-                                        <input class="form-control" id="tegel" name="tegel"
-                                               value="{{ kanban.tegel }}" list="tegelLijst" required>
-                                        <datalist id="tegelLijst">
-                                            {% for tegelItem in tegelLijst %}
-                                                <option value="{{ tegelItem.tegel }}">{{ tegelItem.tegel }}</option>
+                                        <label for="tegel">{{ trans('tile', translations_ek_250624) }}</label>
+                                        <input class="form-control" id="tile" name="tile"
+                                               value="{{ kanban.tile }}" list="tileList" required>
+                                        <datalist id="tileList">
+                                            {% for tileItem in tileList %}
+                                                <option value="{{ tileItem.tile }}">{{ tileItem.tile }}</option>
                                             {% endfor %}
                                         </datalist>
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="status">Status</label>
+                                        <label for="status">{{ trans('tile', translations_ek_250624) }}</label>
                                         <select class="form-select" id="status" name="status">
-                                            <option value="0" {% if kanban.status == 0 %}selected{% endif %}>Niet
-                                                gestart
-                                            </option>
-                                            <option value="1" {% if kanban.status == 1 %}selected{% endif %}>
-                                                Voorbereiding
-                                            </option>
-                                            <option value="2" {% if kanban.status == 2 %}selected{% endif %}>
-                                                Ontwikkeling
-                                            </option>
-                                            <option value="3" {% if kanban.status == 3 %}selected{% endif %}>Testfase
-                                            </option>
-                                            <option value="4" {% if kanban.status == 4 %}selected{% endif %}>Afgerond
-                                            </option>
-                                            <option value="5" {% if kanban.status == 5 %}selected{% endif %}>In de
-                                                wacht
-                                            </option>
+                                            {% for key, value in statusList %}
+                                                <option value="{{ key }}"{% if kanban.status == key %} selected{% endif %}>
+                                                    {{ value }}
+                                                </option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-md-6">
-                                        <label for="product_owner_ids">Product Eigenaar(s)</label>
-                                        <select class="form-select" id="product_owner_ids" name="product_owner_ids[]"
-                                                multiple>
-                                            {{ selectOptiesProductOwners|raw }}
+                                        <label for="product_owner_ids">{{ trans('product_owners', translations_ek_250624) }}</label>
+                                        <select class="form-select" id="product_owner_ids" name="product_owner_ids[]" multiple>
+                                            {{ selectOptionsProductOwners|raw }}
                                         </select>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="team_member_ids">Teamleden</label>
+                                        <label for="team_member_ids">{{ trans('team_members', translations_ek_250624) }}</label>
                                         <select class="form-select" id="team_member_ids" name="team_member_ids[]"
                                                 multiple>
-                                            {{ selectOptiesTeamMembers|raw }}
+                                            {{ selectOptionsTeamMembers|raw }}
                                         </select>
                                     </div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-md-6">
-                                        <label for="start_datum">Start Datum</label>
-                                        <input type="datetime-local" class="form-control" id="start_datum"
-                                               name="start_datum" value="{{ kanban.start_datum }}">
+                                        <label for="start_date">{{ trans('start_date', translations_ek_250624) }}</label>
+                                        <input type="datetime-local" class="form-control" id="start_date"
+                                               name="start_date" value="{{ kanban.start_date }}">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="eind_datum">Eind Datum</label>
-                                        <input type="datetime-local" class="form-control" id="eind_datum"
-                                               name="eind_datum" value="{{ kanban.eind_datum }}">
+                                        <label for="end_date">{{ trans('end_date', translations_ek_250624) }}</label>
+                                        <input type="datetime-local" class="form-control" id="end_date"
+                                               name="end_date" value="{{ kanban.end_date }}">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-md-12">
-                                        <label for="omschrijving">Omschrijving</label>
-                                        <textarea class="form-control" id="omschrijving" name="omschrijving"
-                                                  rows="3">{{ kanban.omschrijving }}</textarea>
+                                        <label for="description">{{ trans('description', translations_ek_250624) }}</label>
+                                        <textarea class="form-control" id="description" name="description"
+                                                  rows="3">{{ kanban.description }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -121,10 +260,10 @@
                     <div class="row mb-2">
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-success" id="save_project"><i class="fa fa-save"></i>
-                                Opslaan
+                                {{ trans('save', translations_ek_250624) }}
                             </button>
                             <a href="javascript:history.back()" class="btn btn-danger"><i class="fa fa-times"></i>
-                                Annuleren</a>
+                                {{ trans('cancel', translations_ek_250624) }}</a>
                         </div>
                     </div>
                 </form>

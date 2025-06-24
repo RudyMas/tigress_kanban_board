@@ -1,15 +1,17 @@
 document.addEventListener('DOMContentLoaded', function () {
+    window.tigress = window.tigress || {};
+
     let script_upload_image = '/public/scripts/tinymce_upload_image.php?folder=kanban';
     let script_list_images = '/public/scripts/tinymce_list_images.php?folder=kanban';
     let currentHost = window.location.origin + '/';
 
     tinymce.init({
         license_key: 'gpl',
-        selector: 'textarea#omschrijving',
+        selector: 'textarea#description',
         promotion: false,
         theme: 'silver',
-        language_url: '/node_modules/tinymce-i18n/langs7/nl_BE.js',
-        language: 'nl_BE',
+        language_url: tigress.languageTinymce.url,
+        language: tigress.languageTinymce.lang,
         paste_data_images: true,
         height: 500,
         plugins: ['lists', 'code', 'image', 'link'],

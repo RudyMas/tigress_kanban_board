@@ -111,7 +111,7 @@ class KanbanController extends Controller
             $kanbans->new();
         }
         $kanban = $kanbans->current();
-        $tileList = $kanbans->getTegelLijst();
+        $tileList = $kanbans->getTileList();
 
         if ($kanban->id === 0) {
             $kanban->product_owner_ids = '["' . $_SESSION['user']['id'] . '"]';
@@ -123,7 +123,8 @@ class KanbanController extends Controller
             'kanban' => $kanban,
             'selectOptionsProductOwners' => $users->getSelectOptions(json_decode($kanban->product_owner_ids, true)),
             'selectOptionsTeamMembers' => $users->getSelectOptions(json_decode($kanban->team_member_ids, true)),
-            'tileLList' => $tileList,
+            'statusList' => LocalizationService::getStatuses(CONFIG->website->html_lang),
+            'tileList' => $tileList,
         ]);
     }
 

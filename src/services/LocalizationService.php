@@ -8,7 +8,7 @@ namespace Service;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.24.0
+ * @version 2025.06.24.1
  * @package Service\LocalizationService
  */
 class LocalizationService
@@ -19,10 +19,10 @@ class LocalizationService
      * with keys corresponding to their status codes.
      * The default language is English ('en').
      *
-     * @param $lang
+     * @param string $lang
      * @return string[]
      */
-    public static function getStatuses($lang = 'en'): array
+    public static function getStatuses(string $lang = 'en'): array
     {
         $lang = substr($lang, 0, 2);
         $statuses = [
@@ -84,10 +84,10 @@ class LocalizationService
      * with keys corresponding to their priority levels.
      * The default language is English ('en').
      *
-     * @param $lang
+     * @param string $lang
      * @return string[]
      */
-    public static function getPriorities($lang = 'en'): array
+    public static function getPriorities(string $lang = 'en'): array
     {
         $lang = substr($lang, 0, 2);
         $priorities = [

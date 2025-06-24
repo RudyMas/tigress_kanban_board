@@ -22,9 +22,9 @@ class KanbansRepo extends Repository
      *
      * @return array
      */
-    public function getTegelLijst(): array
+    public function getTileList(): array
     {
-        $sql = "SELECT DISTINCT tegel FROM kanbans";
+        $sql = "SELECT DISTINCT tile FROM kanbans";
         return $this->getByQuery($sql);
     }
 }
