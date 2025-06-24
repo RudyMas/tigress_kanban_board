@@ -1,14 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     window.tigress = window.tigress || {};
 
-    const statusTeksten = [
-        'Niet gestart',
-        'Voorbereiding',
-        'Ontwikkeling',
-        'Testfase',
-        'Afgerond',
-        'In de wacht',
-    ];
+    const statusTexts = variables.statuses;
 
     const allTranslations = {
         nl: {
@@ -20,17 +13,10 @@ document.addEventListener('DOMContentLoaded', function () {
             status: 'Status',
             actions: 'Acties',
             unknown: 'Onbekend',
-
-            access_level: 'Toegangsniveau',
-            archive: 'Archiveren',
-            edit: 'Bewerk',
-            edit_rights: 'Bewerk Rechten',
-            email: 'Email',
-            family_name: 'Familienaam',
-            first_name: 'Voornaam',
-            last_login: 'Laatste Aanmelding',
-            no_login: 'Geen aanmelding',
+            kanban_board: 'Kanban Bord',
             restore: 'Herstellen',
+            edit: 'Bewerk',
+            archive: 'Archiveren',
         },
         fr: {
             id: 'Id',
@@ -41,17 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
             status: 'Statut',
             actions: 'Actions',
             unknown: 'Inconnu',
-
-            access_level: 'Niveau d\'accès',
-            archive: 'Archiver',
-            edit: 'Éditer',
-            edit_rights: 'Modifier les droits',
-            email: 'E-mail',
-            family_name: 'Nom de famille',
-            first_name: 'Prénom',
-            last_login: 'Dernière connexion',
-            no_login: 'Aucune connexion',
+            kanban_board: 'Tableau Kanban',
             restore: 'Restaurer',
+            edit: 'Éditer',
+            archive: 'Archiver',
         },
         de: {
             id: 'Id',
@@ -62,17 +41,10 @@ document.addEventListener('DOMContentLoaded', function () {
             status: 'Status',
             actions: 'Aktionen',
             unknown: 'Unbekannt',
-
-            access_level: 'Zugriffslevel',
-            archive: 'Archivieren',
-            edit: 'Bearbeiten',
-            edit_rights: 'Rechte bearbeiten',
-            email: 'E-Mail',
-            family_name: 'Familienname',
-            first_name: 'Vorname',
-            last_login: 'Letzte Anmeldung',
-            no_login: 'Keine Anmeldung',
+            kanban_board: 'Kanban Board',
             restore: 'Wiederherstellen',
+            edit: 'Bearbeiten',
+            archive: 'Archivieren',
         },
         es: {
             id: 'Id',
@@ -83,17 +55,10 @@ document.addEventListener('DOMContentLoaded', function () {
             status: 'Estado',
             actions: 'Acciones',
             unknown: 'Desconocido',
-
-            access_level: 'Nivel de acceso',
-            archive: 'Archivar',
-            edit: 'Editar',
-            edit_rights: 'Editar derechos',
-            email: 'Correo electrónico',
-            family_name: 'Apellido',
-            first_name: 'Nombre',
-            last_login: 'Último inicio de sesión',
-            no_login: 'Sin inicio de sesión',
+            kanban_board: 'Tablero Kanban',
             restore: 'Restaurar',
+            edit: 'Editar',
+            archive: 'Archivar',
         },
         it: {
             id: 'Id',
@@ -104,17 +69,10 @@ document.addEventListener('DOMContentLoaded', function () {
             status: 'Stato',
             actions: 'Azioni',
             unknown: 'Sconosciuto',
-
-            access_level: 'Livello di accesso',
-            archive: 'Archivia',
-            edit: 'Modifica',
-            edit_rights: 'Modifica diritti',
-            email: 'E-mail',
-            family_name: 'Cognome',
-            first_name: 'Nome',
-            last_login: 'Ultimo accesso',
-            no_login: 'Nessun accesso',
+            kanban_board: 'Bacheca Kanban',
             restore: 'Ripristina',
+            edit: 'Modifica',
+            archive: 'Archivia',
         },
         en: {
             id: 'Id',
@@ -125,17 +83,10 @@ document.addEventListener('DOMContentLoaded', function () {
             status: 'Status',
             actions: 'Actions',
             unknown: 'Unknown',
-
-            access_level: 'Access Level',
-            archive: 'Archive',
-            edit: 'Edit',
-            edit_rights: 'Edit Rights',
-            email: 'E-mail',
-            family_name: 'Family Name',
-            first_name: 'First Name',
-            last_login: 'Last Login',
-            no_login: 'No login',
+            kanban_board: 'Kanban Board',
             restore: 'Restore',
+            edit: 'Edit',
+            archive: 'Archive',
         }
     }
 
@@ -218,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 className: 'text-nowrap text-center',
                 width: '1%',
                 render: function (data) {
-                    return statusTeksten[data] || translations.unknown;
+                    return statusTexts[data] || translations.unknown;
                 }
             },
             {
@@ -227,20 +178,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 className: 'text-nowrap text-center',
                 width: '1%',
                 render: function (data, type, row) {
-                    let acties = `<a href="/kanban/bord/${row.id}" data-bs-toggle="tooltip" title="Kanban bord" class="btn btn-info btn-sm"><i class="fa fa-tasks"></i></a>`;
+                    let actions = `<a href="/kanban/board/${row.id}" data-bs-toggle="tooltip" title="${translations.kanban_board}" class="btn btn-info btn-sm"><i class="fa fa-tasks"></i></a>`;
 
-                    if (variables.verwijder) {
-                        if (variables.toon === 'archief') {
-                            acties += ` <button type="button" data-bs-toggle="modal" title="Herstellen" data-bs-target="#modalHerstellen" data-id="${row.id}" class="btn btn-success btn-sm"><i class="fa fa-undo"></i></button>`;
+                    if (variables.delete) {
+                        if (variables.show === 'archive') {
+                            actions += ` <button type="button" data-bs-toggle="modal" title="${translations.restore}" data-bs-target="#modalRestore" data-id="${row.id}" class="btn btn-success btn-sm"><i class="fa fa-undo"></i></button>`;
                         } else {
-                            if (variables.schrijf) {
-                                acties += ` <a href="/kanban/edit/${row.id}" data-bs-toggle="tooltip" title="Bewerken" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></a>`;
+                            if (variables.write) {
+                                actions += ` <a href="/kanban/edit/${row.id}" data-bs-toggle="tooltip" title="${translations.edit}" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></a>`;
                             }
-                            acties += ` <button type="button" data-bs-toggle="modal" title="Archiveren" data-bs-target="#modalArchiveren" data-id="${row.id}" class="btn btn-danger btn-sm"><i class="fa fa-archive"></i></button>`;
+                            actions += ` <button type="button" data-bs-toggle="modal" title="${translations.archive}" data-bs-target="#modalArchive" data-id="${row.id}" class="btn btn-danger btn-sm"><i class="fa fa-archive"></i></button>`;
                         }
                     }
 
-                    return acties;
+                    return actions;
                 }
             }
         ],
@@ -253,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         return '';
                     }
                     if (data === '0000-00-00 00:00:00') {
-                        return type === 'display' ? `<span class="text-muted">Onbekend</span>` : null;
+                        return type === 'display' ? `<span class="text-muted">${translations.unknown}</span>` : null;
                     }
                     return type === 'display'
                         ? moment(data, 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY')
@@ -270,19 +221,19 @@ document.addEventListener('DOMContentLoaded', function () {
         initTooltips();
     });
 
-    const modalArchiveren = document.getElementById('modalArchiveren');
-    if (modalArchiveren) {
-        modalArchiveren.addEventListener('show.bs.modal', function (event) {
+    const modalArchive = document.getElementById('modalArchive');
+    if (modalArchive) {
+        modalArchive.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget;
-            modalArchiveren.querySelector('.modal-footer #id').value = button.getAttribute('data-id');
+            modalArchive.querySelector('.modal-footer #id').value = button.getAttribute('data-id');
         });
     }
 
-    const modalHerstellen = document.getElementById('modalHerstellen');
-    if (modalHerstellen) {
-        modalHerstellen.addEventListener('show.bs.modal', function (event) {
+    const modalRestore = document.getElementById('modalRestore');
+    if (modalRestore) {
+        modalRestore.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget;
-            modalHerstellen.querySelector('.modal-footer #id').value = button.getAttribute('data-id');
+            modalRestore.querySelector('.modal-footer #id').value = button.getAttribute('data-id');
         });
     }
 });

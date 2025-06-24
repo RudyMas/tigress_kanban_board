@@ -87,7 +87,7 @@
             write: '{{ rights.write }}',
             read: '{{ rights.read }}',
             delete: '{{ rights.delete }}',
-            statuses: [{{ statuses }}],
+            statuses: {{ statuses|raw }},
         }
     </script>
     <script src="{{ BASE_URL }}/vendor/tigress/kanban-board/public/javascript/kanban/index.js"></script>

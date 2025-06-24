@@ -47,7 +47,7 @@ class KanbanController extends Controller
         }
 
         TWIG->render('kanban/index.twig', [
-            'statuses' => LocalizationService::getStatuses(CONFIG->website->html_lang),
+            'statuses' => json_encode(LocalizationService::getStatuses(CONFIG->website->html_lang)),
         ]);
     }
 
