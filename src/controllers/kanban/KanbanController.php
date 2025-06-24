@@ -190,11 +190,12 @@ class KanbanController extends Controller
 
         $users = new UsersRepo();
 
-        TWIG->render('kanban/kanban_bord.twig', [
+        TWIG->render('kanban/kanban_board.twig', [
             'kanbansStatuses' => $kanbansStatuses,
             'kanban' => $kanbans->current(),
             'kanbansTasks' => $kanbansTasks,
             'users' => $users,
+            'lang' => substr(CONFIG->website->html_lang, 0 , 2),
         ]);
     }
 }
