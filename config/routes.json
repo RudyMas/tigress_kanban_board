@@ -1,0 +1,81 @@
+{
+  "routes": [
+    {
+      "request": "GET",
+      "path": "/kanban",
+      "controller": "kanban\\KanbanController",
+      "method": "index",
+      "level_rights": [
+        100
+      ],
+      "special_rights": "kanban",
+      "special_rights_default": []
+    },
+    {
+      "request": "POST",
+      "path": "/kanban/archiveren",
+      "controller": "kanban\\KanbanCrudController",
+      "method": "archiveren"
+    },
+    {
+      "request": "GET",
+      "path": "/kanban/edit/{id}",
+      "controller": "kanban\\KanbanController",
+      "method": "editKanban"
+    },
+    {
+      "request": "GET",
+      "path": "/kanban/get/{active}",
+      "controller": "kanban\\KanbanCrudController",
+      "method": "getAllByActive"
+    },
+    {
+      "request": "POST",
+      "path": "/kanban/herstellen",
+      "controller": "kanban\\KanbanCrudController",
+      "method": "herstellen"
+    },
+    {
+      "request": "GET",
+      "path": "/kanban/bord/{id}",
+      "controller": "kanban\\KanbanController",
+      "method": "bord"
+    },
+    {
+      "request": "POST",
+      "path": "/kanban/bord/update/status",
+      "controller": "kanban\\KanbanCrudController",
+      "method": "kanbanUpdateStatus"
+    },
+    {
+      "request": "POST",
+      "path": "/kanban/save",
+      "controller": "kanban\\KanbanCrudController",
+      "method": "saveKanban"
+    },
+    {
+      "request": "POST",
+      "path": "/kanban/taken/delete",
+      "controller": "kanban\\KanbanCrudController",
+      "method": "deleteTaak"
+    },
+    {
+      "request": "GET",
+      "path": "/kanban/taken/edit/{id}/{kanban_id}",
+      "controller": "kanban\\KanbanController",
+      "method": "editTaak"
+    },
+    {
+      "request": "GET",
+      "path": "/kanban/taken/informatie/{id}/{kanban_id}",
+      "controller": "kanban\\KanbanController",
+      "method": "informatieTaak"
+    },
+    {
+      "request": "POST",
+      "path": "/kanban/taak/save",
+      "controller": "kanban\\KanbanCrudController",
+      "method": "saveTaak"
+    }
+  ]
+}

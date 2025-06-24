@@ -1,0 +1,29 @@
+{
+  "name": "tigress/kanban-board",
+  "description": "A simple to use Kanban Board for the Tigress Framework",
+  "type": "library",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Rudy Mas",
+      "email": "rudy.mas@rudymas.be",
+      "homepage": "https://rudymas.be",
+      "role": "Developer"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=8.4"
+  },
+  "require-dev": {
+    "tigress/core": "dev-main",
+    "tigress/users": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Tigress\\": "src/",
+      "Controller\\": "src/controllers",
+      "Repository\\": "src/repositories"
+    }
+  }
+}

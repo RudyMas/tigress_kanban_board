@@ -1,0 +1,109 @@
+{% extends 'datatable.twig' %}
+{% block js %}
+    {{ parent() }}
+    <script>
+        let variables = {
+            toon: '{{ _GET.toon }}',
+            schrijf: '{{ rights.write }}',
+            lees: '{{ rights.read }}',
+            verwijder: '{{ rights.delete }}',
+        }
+    </script>
+    <script src="{{ BASE_URL }}/public/javascript/kanban/index.js"></script>
+{% endblock %}
+{% block title %}Kanbanborden{% endblock %}
+{% block breadcrumb %}
+    <div class="row mb-2">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb" data-bs-theme="dark">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
+                    <li class="breadcrumb-item active">Kanbanborden</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-4">
+                <h3>Kanbanborden {% if toon == 'archief' %}(archief){% endif %}
+                    {% if (toegang) %}
+                        <a class="btn btn-sm btn-outline-dark" href="{{ BASE_URL }}/kanban/instellingen"><i
+                                    class="fa fa-cogs"></i></a>
+                    {% endif %}
+                </h3>
+            </div>
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4 text-end">
+                {% if _GET.toon == 'archief' %}
+                    <a href="{{ BASE_URL }}/kanban" class="btn btn-warning"><i class="fa fa-archive"></i> Archief</a>
+                {% else %}
+                    <a href="{{ BASE_URL }}/kanban?toon=archief" class="btn btn-outline-warning"><i class="fa fa-archive"></i> Archief</a>
+                {% endif %}
+                {% if rights.write %}
+                    <a href="{{ BASE_URL }}/kanban/edit/0" class="btn btn-success"><i class="fa-solid fa-plus"></i> Toevoegen</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <fieldset class="mt-2">
+                    <div class="row mb-2">
+                        <div class="col-sm-12 table-responsive">
+                            <table id="dataTableKanbans" class="table table-striped table-bordered"></table>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+    {# Modal Archiveren Project #}
+    <form action="{{ BASE_URL }}/kanban/archiveren" method="post" enctype="multipart/form-data">
+        <div class="modal fade" id="modalArchiveren" tabindex="-1" aria-labelledby="modalArchiverenLabel"
+             aria-hidden="true" style="color: black">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalArchiverenLabel">Kanbanbord archiveren</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Weet u zeker dat u dit kanbanbord wilt archiveren?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="id" id="id">
+                        <button type="submit" class="btn btn-success" id="btnArchiveren">Archiveren</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuleren</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    {# Modal Herstellen Project #}
+    <form action="{{ BASE_URL }}/kanban/herstellen" method="post" enctype="multipart/form-data">
+        <div class="modal fade" id="modalHerstellen" tabindex="-1" aria-labelledby="modalHerstellenLabel"
+             aria-hidden="true" style="color: black">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalArchiverenLabel">Kanbanbord herstellen</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Weet u zeker dat u dit kanbanbord wilt herstellen?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="id" id="id">
+                        <button type="submit" class="btn btn-success" id="btnArchiveren">Herstellen</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuleren</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

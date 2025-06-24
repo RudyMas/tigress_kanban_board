@@ -1,0 +1,134 @@
+{% extends 'base.twig' %}
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ BASE_URL }}/public/css/kanban/edit_kanban.css">
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    <script src="{{ BASE_URL }}/node_modules/tinymce/tinymce.min.js"></script>
+    <script src="{{ BASE_URL }}/node_modules/tinymce/themes/silver/theme.min.js"></script>
+    <script src="{{ BASE_URL }}/public/javascript/kanban/edit_kanban.js"></script>
+{% endblock %}
+{% block title %}Kanbanbord {% if kanban.id == 0 %}Toevoegen{% else %}Aanpassen{% endif %}{% endblock %}
+{% block breadcrumb %}
+    <div class="row mb-2">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb" data-bs-theme="dark">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban">Kanbanborden</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                        Kanbanbord {% if kanban.id == 0 %}Toevoegen{% else %}Aanpassen{% endif %}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-4">
+                <h3>Kanbanbord {% if kanban.id == 0 %}Toevoegen{% else %}Aanpassen{% endif %}</h3>
+            </div>
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4 text-end">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <form method="post" action="{{ BASE_URL }}/kanban/save">
+                    <fieldset>
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <input type="hidden" name="id" value="{{ kanban.id }}">
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <label for="naam">Project Naam</label>
+                                        <input type="text" class="form-control" id="naam" name="naam"
+                                               value="{{ kanban.naam }}" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="tegel">Tegel</label>
+                                        <input class="form-control" id="tegel" name="tegel"
+                                               value="{{ kanban.tegel }}" list="tegelLijst" required>
+                                        <datalist id="tegelLijst">
+                                            {% for tegelItem in tegelLijst %}
+                                                <option value="{{ tegelItem.tegel }}">{{ tegelItem.tegel }}</option>
+                                            {% endfor %}
+                                        </datalist>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label for="status">Status</label>
+                                        <select class="form-select" id="status" name="status">
+                                            <option value="0" {% if kanban.status == 0 %}selected{% endif %}>Niet
+                                                gestart
+                                            </option>
+                                            <option value="1" {% if kanban.status == 1 %}selected{% endif %}>
+                                                Voorbereiding
+                                            </option>
+                                            <option value="2" {% if kanban.status == 2 %}selected{% endif %}>
+                                                Ontwikkeling
+                                            </option>
+                                            <option value="3" {% if kanban.status == 3 %}selected{% endif %}>Testfase
+                                            </option>
+                                            <option value="4" {% if kanban.status == 4 %}selected{% endif %}>Afgerond
+                                            </option>
+                                            <option value="5" {% if kanban.status == 5 %}selected{% endif %}>In de
+                                                wacht
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <label for="product_owner_ids">Product Eigenaar(s)</label>
+                                        <select class="form-select" id="product_owner_ids" name="product_owner_ids[]"
+                                                multiple>
+                                            {{ selectOptiesProductOwners|raw }}
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="team_member_ids">Teamleden</label>
+                                        <select class="form-select" id="team_member_ids" name="team_member_ids[]"
+                                                multiple>
+                                            {{ selectOptiesTeamMembers|raw }}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <label for="start_datum">Start Datum</label>
+                                        <input type="datetime-local" class="form-control" id="start_datum"
+                                               name="start_datum" value="{{ kanban.start_datum }}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="eind_datum">Eind Datum</label>
+                                        <input type="datetime-local" class="form-control" id="eind_datum"
+                                               name="eind_datum" value="{{ kanban.eind_datum }}">
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-12">
+                                        <label for="omschrijving">Omschrijving</label>
+                                        <textarea class="form-control" id="omschrijving" name="omschrijving"
+                                                  rows="3">{{ kanban.omschrijving }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-success" id="save_project"><i class="fa fa-save"></i>
+                                Opslaan
+                            </button>
+                            <a href="javascript:history.back()" class="btn btn-danger"><i class="fa fa-times"></i>
+                                Annuleren</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

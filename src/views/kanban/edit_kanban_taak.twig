@@ -1,0 +1,138 @@
+{% extends 'base.twig' %}
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ BASE_URL }}/public/css/kanban/edit_kanban_taak.css">
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    <script src="{{ BASE_URL }}/node_modules/tinymce/tinymce.min.js"></script>
+    <script src="{{ BASE_URL }}/node_modules/tinymce/themes/silver/theme.min.js"></script>
+    <script src="{{ BASE_URL }}/public/javascript/kanban/edit_kanban_taak.js"></script>
+{% endblock %}
+{% block title %}Taak {% if kanbansTaak.id == 0 %}Toevoegen{% else %}Aanpassen{% endif %}{% endblock %}
+{% block breadcrumb %}
+    <div class="row mb-2">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb" data-bs-theme="dark">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban">Kanbanborden</a></li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban/bord/{{ kanban.id }}">{{ kanban.tegel }}: {{ kanban.naam }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Edit Taak</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-4">
+                <h3>Taak {% if kanbansTaak.id == 0 %}Toevoegen{% else %}Aanpassen{% endif %}</h3>
+            </div>
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4 text-end">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <form method="post" action="{{ BASE_URL }}/kanban/taak/save">
+                    <fieldset class="mt-2">
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <input type="hidden" name="id" value="{{ kanbansTaak.id }}">
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <label for="naam">Taak Naam</label>
+                                        <input type="text" class="form-control" id="naam" name="naam"
+                                               value="{{ kanbansTaak.naam }}" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="prioriteit">Prioriteit</label>
+                                        <select class="form-select" id="prioriteit" name="prioriteit">
+                                            <option value="1" {% if kanbansTaak.prioriteit == 1 %}selected{% endif %}>
+                                                ASAP
+                                            </option>
+                                            <option value="2" {% if kanbansTaak.prioriteit == 2 %}selected{% endif %}>
+                                                Prio 1
+                                            </option>
+                                            <option value="3" {% if kanbansTaak.prioriteit == 3 %}selected{% endif %}>
+                                                Prio 2
+                                            </option>
+                                            <option value="4" {% if kanbansTaak.prioriteit == 4 %}selected{% endif %}>
+                                                Prio 3
+                                            </option>
+                                            <option value="5" {% if kanbansTaak.prioriteit == 5 %}selected{% endif %}>
+                                                Normaal
+                                            </option>
+                                            <option value="6" {% if kanbansTaak.prioriteit == 6 %}selected{% endif %}>
+                                                Tussendoor 1
+                                            </option>
+                                            <option value="7" {% if kanbansTaak.prioriteit == 7 %}selected{% endif %}>
+                                                Tussendoor 2
+                                            </option>
+                                            <option value="8" {% if kanbansTaak.prioriteit == 8 %}selected{% endif %}>
+                                                Tussendoor 3
+                                            </option>
+                                            <option value="9" {% if kanbansTaak.prioriteit == 9 %}selected{% endif %}>
+                                                Niet dringend
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <label for="deadline">Streefdatum</label>
+                                        <input type="datetime-local" class="form-control" id="deadline"
+                                               name="deadline" value="{{ kanbansTaak.deadline }}">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="kanban_status_id">Status</label>
+                                        <select class="form-select" id="kanban_status_id" name="kanban_status_id">
+                                            {{ kanbansStatusOptions|raw }}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-12">
+                                        <label for="worker_ids">Uitvoerder(s)</label>
+                                        <select class="form-select" id="worker_ids" name="worker_ids[]" multiple>
+                                            {{ selectOptiesWorkers|raw }}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-12">
+                                        <label for="omschrijving">Omschrijving</label>
+                                        <textarea class="form-control" id="omschrijving" name="omschrijving"
+                                                  rows="3">{{ kanbansTaak.omschrijving }}</textarea>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-12">
+                                        <label for="opmerking">Opmerking</label>
+                                        <textarea class="form-control" id="opmerking" name="opmerking"
+                                                  rows="3">{{ kanbansTaak.opmerking }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            <input type="hidden" name="kanban_id" value="{{ kanban.id }}">
+                            {% if (rights.write) %}
+                                <button type="submit" class="btn btn-success" id="save_project"><i
+                                            class="fa fa-save"></i> Opslaan
+                                </button>
+                            {% endif %}
+                            <a href="javascript:history.back()" class="btn btn-danger"><i class="fa fa-times"></i>
+                                Annuleren</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

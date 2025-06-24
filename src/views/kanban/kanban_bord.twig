@@ -1,0 +1,156 @@
+{% extends 'base.twig' %}
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ BASE_URL }}/public/css/kanban/kanban_bord.css">
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    <script>
+        let variables = {
+            schrijf: '{{ rights.write }}',
+        }
+    </script>
+    <script src="{{ BASE_URL }}/node_modules/sortablejs/Sortable.min.js"></script>
+    <script src="{{ BASE_URL }}/public/javascript/kanban/kanban_bord.js"></script>
+{% endblock %}
+{% block title %}Kanbanbord - {{ kanban.tegel }}: {{ kanban.naam }}{% endblock %}
+{% block breadcrumb %}
+    <div class="row mb-2">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb" data-bs-theme="dark">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban">Kanbanborden</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ kanban.tegel }}: {{ kanban.naam }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    {% set backcolor = {
+        1: '#00FF00',
+        2: '#33CC00',
+        3: '#66CC00',
+        4: '#99CC00',
+        5: '#FFCC00',
+        6: '#FF9900',
+        7: '#FF6600',
+        8: '#FF3300',
+        9: '#FF0000'
+    } %}
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col-sm-12">
+                <h3>{{ kanban.tegel }}: {{ kanban.naam }}
+                    {% if rights.write %}
+                        <a href="{{ BASE_URL }}/kanban/taken/edit/0/{{ kanban.id }}" class="btn btn-sm btn-success"
+                           data-bs-toggle="tooltip" title="Taak toevoegen">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    {% endif %}
+                </h3>
+            </div>
+        </div>
+        <div class="row mb-2 break-out90">
+            <div class="col-md-12">
+                <fieldset class="mt-2">
+                    <div class="row mb-2">
+                        <div class="col-md-12">
+                            <div class="task-board">
+                                {% for kanbansStatus in kanbansStatussen %}
+                                    <div class="task-column" data-status="{{ kanbansStatus.id }}">
+                                        <h3>{{ kanbansStatus.naam }}</h3>
+                                        <ul class="task-list" id="{{ kanbansStatus.id }}">
+                                            {% for kanbansTaak in kanbansTaken %}
+                                                {% if kanbansTaak.kanban_status_id == kanbansStatus.id %}
+                                                    {% set today = "now"|date("Y-m-d H:i:s") %}
+                                                    {% set deadline = kanbansTaak.deadline ?? null %}
+                                                    {% set showred = (deadline is not null and deadline != '0000-00-00 00:00:00' and today > deadline and kanbansStatus.deadline_check) %}
+                                                    <li class="task-item"
+                                                        style="background-color: {{ backcolor[kanbansTaak.prioriteit] }}; {% if showred %} border: 4px solid red{% endif %}"
+                                                        data-id="{{ kanbansTaak.id }}">
+                                                        <div class="row mb-2">
+                                                            <div class="col-md-12">
+                                                                <div class="task-title">{{ kanbansTaak.naam }}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-2">
+                                                            <div class="col-md-12 text-start">
+                                                                <p style="font-size: 0.8em">
+                                                                    <b>Uitvoerder(s):</b><br>
+                                                                    {{ users.getNames(kanbansTaak.worker_ids) }}<br>
+                                                                    <b>Streefdatum:</b><br>
+                                                                    {% if (kanbansTaak.deadline != null and kanbansTaak.deadline != '0000-00-00 00:00:00') %}
+                                                                        {{ kanbansTaak.deadline|date('d-m-Y H:i') }}
+                                                                    {% else %}
+                                                                        Geen deadline
+                                                                    {% endif %}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 text-start">
+                                                                {% if rights.write %}
+                                                                    <a data-bs-toggle="tooltip" title="Aanpassen"
+                                                                       href="{{ BASE_URL }}/kanban/taken/edit/{{ kanbansTaak.id }}/{{ kanban.id }}"
+                                                                       class="btn btn-sm btn-success">
+                                                                        <i class="fa fa-pencil"></i>
+                                                                    </a>
+                                                                {% endif %}
+                                                                {% if rights.delete %}
+                                                                    <button type="button" data-bs-toggle="modal"
+                                                                            title="Verwijderen"
+                                                                            data-bs-target="#modalVerwijderen"
+                                                                            data-id="{{ kanbansTaak.id }}"
+                                                                            data-kanban-id="{{ kanban.id }}"
+                                                                            class="btn btn-danger btn-sm"><i
+                                                                                class="fa fa-trash-can"></i></button>
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="col-md-6 text-end">
+                                                                <a data-bs-toggle="tooltip" title="Informatie"
+                                                                   href="{{ BASE_URL }}/kanban/taken/informatie/{{ kanbansTaak.id }}/{{ kanban.id }}"
+                                                                   class="btn btn-sm btn-info">
+                                                                    <i class="fa-regular fa-eye"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+
+    {# Modal Taak Verwijderen #}
+    <form action="{{ BASE_URL }}/kanban/taken/delete" method="post" enctype="multipart/form-data">
+        <div class="modal fade" id="modalVerwijderen" tabindex="-1" aria-labelledby="modalVerwijderenLabel"
+             aria-hidden="true" style="color: black">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalVerwijderenLabel">Taak verwijderen</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Weet u zeker dat u deze taak wilt verwijderen?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="id" id="id">
+                        <input type="hidden" name="kanban_id" id="kanban_id">
+                        <button type="submit" class="btn btn-success" id="btnVerwijderen">Ja</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Nee</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

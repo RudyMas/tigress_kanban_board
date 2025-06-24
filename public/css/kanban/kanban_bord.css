@@ -1,0 +1,63 @@
+/* Styling for the task board */
+.task-board {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Styling for each status column */
+.task-column {
+    width: 300px;
+    min-height: 400px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 2px dashed #ccc;
+}
+
+/* Heading inside each column */
+.task-column h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Task list container */
+.task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    min-height: 350px;
+}
+
+/* Individual task item (as a card) */
+.task-item {
+    background: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: grab;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* Hover effect for draggable tasks */
+.task-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* While dragging */
+.ui-draggable-dragging {
+    opacity: 0.7;
+    transform: scale(1.1);
+}
+
+/* Highlight column when a task is being dragged over */
+.task-column.ui-droppable-active {
+    border-color: #007bff;
+    background: #e9f5ff;
+}
