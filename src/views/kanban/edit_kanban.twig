@@ -1,13 +1,13 @@
 {% extends 'base.twig' %}
 {% block css %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ BASE_URL }}/public/css/kanban/edit_kanban.css">
+    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/kanban-board/public/css/kanban/edit_kanban.css">
 {% endblock %}
 {% block js %}
     {{ parent() }}
     <script src="{{ BASE_URL }}/node_modules/tinymce/tinymce.min.js"></script>
     <script src="{{ BASE_URL }}/node_modules/tinymce/themes/silver/theme.min.js"></script>
-    <script src="{{ BASE_URL }}/public/javascript/kanban/edit_kanban.js"></script>
+    <script src="{{ BASE_URL }}/vendor/tigress/kanban-board/public/javascript/kanban/edit_kanban.js"></script>
 {% endblock %}
 {% block title %}Kanbanbord {% if kanban.id == 0 %}Toevoegen{% else %}Aanpassen{% endif %}{% endblock %}
 {% block breadcrumb %}

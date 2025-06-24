@@ -4,7 +4,7 @@ namespace Controller\kanban;
 
 use JetBrains\PhpStorm\NoReturn;
 use Repository\KanbansRepo;
-use Repository\KanbansTakenRepo;
+use Repository\KanbansTasksRepo;
 use Tigress\Controller;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -26,7 +26,7 @@ class KanbanCrudController extends Controller
      *
      * @return void
      */
-    #[NoReturn] public function archiveren(): void
+    #[NoReturn] public function archive(): void
     {
         $this->checkRights();
 
@@ -87,14 +87,14 @@ class KanbanCrudController extends Controller
      *
      * @return void
      */
-    #[NoReturn] public function herstellen(): void
+    #[NoReturn] public function restore(): void
     {
         $this->checkRights();
 
         $kanbans = new KanbansRepo();
         $kanbans->undeleteById($_POST['id']);
 
-        TWIG->redirect('/kanban?toon=archief');
+        TWIG->redirect('/kanban?show=archive');
     }
 
     /**
@@ -106,10 +106,10 @@ class KanbanCrudController extends Controller
     {
         $this->checkRights();
 
-        $kanbansTaken = new KanbansTakenRepo();
-        $kanbansTaken->deleteById((int)$_POST['id']);
+        $kanbansTasks = new KanbansTasksRepo();
+        $kanbansTasks->deleteById((int)$_POST['id']);
 
-        TWIG->redirect('/kanban/bord/' . $_POST['kanban_id']);
+        TWIG->redirect('/kanban/board/' . $_POST['kanban_id']);
     }
 
     /**
@@ -124,11 +124,11 @@ class KanbanCrudController extends Controller
     {
         $this->checkRights();
 
-        $kanbansTaken = new KanbansTakenRepo();
-        $kanbansTaken->loadById($_POST['id']);
-        $kanbansTaak = $kanbansTaken->current();
-        $kanbansTaak->kanban_status_id = (int)$_POST['status'];
-        $kanbansTaken->save($kanbansTaak);
+        $kanbansTasks = new KanbansTasksRepo();
+        $kanbansTasks->loadById($_POST['id']);
+        $kanbansTask = $kanbansTasks->current();
+        $kanbansTask->kanban_status_id = (int)$_POST['status'];
+        $kanbansTasks->save($kanbansTask);
 
         TWIG->render('', ['success' => true], 'JSON');
     }
@@ -173,16 +173,16 @@ class KanbanCrudController extends Controller
             $_POST['worker_ids'] = json_encode([]);
         }
 
-        $kanbansTaken = new KanbansTakenRepo();
+        $kanbansTasks = new KanbansTasksRepo();
         if (isset($_POST['id']) && $_POST['id'] > 0) {
-            $kanbansTaken->loadById($_POST['id']);
+            $kanbansTasks->loadById($_POST['id']);
         } else {
-            $kanbansTaken->new();
+            $kanbansTasks->new();
         }
-        $kanbansTaak = $kanbansTaken->current();
-        $kanbansTaak->updateFromPost($_POST);
-        $kanbansTaken->save($kanbansTaak);
+        $kanbansTask = $kanbansTasks->current();
+        $kanbansTask->updateFromPost($_POST);
+        $kanbansTasks->save($kanbansTask);
 
-        TWIG->redirect('/kanban/bord/' . $_POST['kanban_id']);
+        TWIG->redirect('/kanban/board/' . $_POST['kanban_id']);
     }
 }

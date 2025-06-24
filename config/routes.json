@@ -13,9 +13,21 @@
     },
     {
       "request": "POST",
-      "path": "/kanban/archiveren",
+      "path": "/kanban/archive",
       "controller": "kanban\\KanbanCrudController",
-      "method": "archiveren"
+      "method": "archive"
+    },
+    {
+      "request": "GET",
+      "path": "/kanban/board/{id}",
+      "controller": "kanban\\KanbanController",
+      "method": "board"
+    },
+    {
+      "request": "POST",
+      "path": "/kanban/board/update/status",
+      "controller": "kanban\\KanbanCrudController",
+      "method": "kanbanUpdateStatus"
     },
     {
       "request": "GET",
@@ -31,21 +43,9 @@
     },
     {
       "request": "POST",
-      "path": "/kanban/herstellen",
+      "path": "/kanban/restore",
       "controller": "kanban\\KanbanCrudController",
-      "method": "herstellen"
-    },
-    {
-      "request": "GET",
-      "path": "/kanban/bord/{id}",
-      "controller": "kanban\\KanbanController",
-      "method": "bord"
-    },
-    {
-      "request": "POST",
-      "path": "/kanban/bord/update/status",
-      "controller": "kanban\\KanbanCrudController",
-      "method": "kanbanUpdateStatus"
+      "method": "restore"
     },
     {
       "request": "POST",
@@ -55,27 +55,27 @@
     },
     {
       "request": "POST",
-      "path": "/kanban/taken/delete",
+      "path": "/kanban/tasks/delete",
       "controller": "kanban\\KanbanCrudController",
       "method": "deleteTaak"
     },
     {
       "request": "GET",
-      "path": "/kanban/taken/edit/{id}/{kanban_id}",
+      "path": "/kanban/tasks/edit/{id}/{kanban_id}",
       "controller": "kanban\\KanbanController",
-      "method": "editTaak"
+      "method": "editTasks"
     },
     {
       "request": "GET",
-      "path": "/kanban/taken/informatie/{id}/{kanban_id}",
+      "path": "/kanban/tasks/information/{id}/{kanban_id}",
       "controller": "kanban\\KanbanController",
-      "method": "informatieTaak"
+      "method": "informationTasks"
     },
     {
       "request": "POST",
-      "path": "/kanban/taak/save",
+      "path": "/kanban/tasks/save",
       "controller": "kanban\\KanbanCrudController",
-      "method": "saveTaak"
+      "method": "saveTasks"
     }
   ]
 }

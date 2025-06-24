@@ -4,12 +4,12 @@ namespace Repository;
 
 use Tigress\Repository;
 
-class KanbansStatussenRepo extends Repository
+class KanbansStatusesRepo extends Repository
 {
     public function __construct()
     {
         $this->dbName = 'default';
-        $this->table = 'kanbans_statussen';
+        $this->table = 'kanbans_statuses';
         $this->primaryKey = ['id'];
         $this->model = 'DefaultModel';
         $this->autoload = true;
@@ -38,6 +38,6 @@ class KanbansStatussenRepo extends Repository
     public function getStatus(int $id): string
     {
         $this->loadById($id);
-        return $this->current()->naam;
+        return $this->current()->name_nl ?? $this->current()->name_en ?? '';
     }
 }

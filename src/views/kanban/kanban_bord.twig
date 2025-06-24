@@ -1,7 +1,7 @@
 {% extends 'base.twig' %}
 {% block css %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ BASE_URL }}/public/css/kanban/kanban_bord.css">
+    <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/kanban-board/public/css/kanban/kanban_bord.css">
 {% endblock %}
 {% block js %}
     {{ parent() }}
@@ -11,7 +11,7 @@
         }
     </script>
     <script src="{{ BASE_URL }}/node_modules/sortablejs/Sortable.min.js"></script>
-    <script src="{{ BASE_URL }}/public/javascript/kanban/kanban_bord.js"></script>
+    <script src="{{ BASE_URL }}/vendor/tigress/kanban-board/public/javascript/kanban/kanban_bord.js"></script>
 {% endblock %}
 {% block title %}Kanbanbord - {{ kanban.tegel }}: {{ kanban.naam }}{% endblock %}
 {% block breadcrumb %}
@@ -60,7 +60,7 @@
                             <div class="task-board">
                                 {% for kanbansStatus in kanbansStatussen %}
                                     <div class="task-column" data-status="{{ kanbansStatus.id }}">
-                                        <h3>{{ kanbansStatus.naam }}</h3>
+                                        <h3>{{ kanbansStatus.name_nl }}</h3>
                                         <ul class="task-list" id="{{ kanbansStatus.id }}">
                                             {% for kanbansTaak in kanbansTaken %}
                                                 {% if kanbansTaak.kanban_status_id == kanbansStatus.id %}

@@ -1,24 +1,105 @@
 {% extends 'datatable.twig' %}
+{% set translations_i_250624 = {
+    'nl': {
+        'add': 'Toevoegen',
+        'archive': 'Archief',
+        'archive_kanban_board': 'Kanbanbord archiveren',
+        'archive_kanban_board_message': 'Weet u zeker dat u dit kanbanbord wilt archiveren?',
+        'archiving': 'Archiveren',
+        'cancel': 'Annuleren',
+        'close': 'Sluiten',
+        'kanban_boards': 'Kanbanborden',
+        'restore': 'Herstellen',
+        'restore_kanban_board': 'Kanbanbord herstellen',
+        'restore_kanban_board_message': 'Weet u zeker dat u dit kanbanbord wilt herstellen?',
+    },
+    'fr': {
+        'add': 'Ajouter',
+        'archive': 'Archive',
+        'archive_kanban_board': 'Archiver le tableau Kanban',
+        'archive_kanban_board_message': 'Êtes-vous sûr de vouloir archiver ce tableau Kanban ?',
+        'archiving': 'Archivage',
+        'cancel': 'Annuler',
+        'close': 'Fermer',
+        'kanban_boards': 'Tableaux Kanban',
+        'restore': 'Restaurer',
+        'restore_kanban_board': 'Restaurer le tableau Kanban',
+        'restore_kanban_board_message': 'Êtes-vous sûr de vouloir restaurer ce tableau Kanban ?',
+    },
+    'de': {
+        'add': 'Hinzufügen',
+        'archive': 'Archiv',
+        'archive_kanban_board': 'Kanban Board archivieren',
+        'archive_kanban_board_message': 'Sind Sie sicher, dass Sie dieses Kanban Board archivieren möchten?',
+        'archiving': 'Archivieren',
+        'cancel': 'Abbrechen',
+        'close': 'Schließen',
+        'kanban_boards': 'Kanban Boards',
+        'restore': 'Wiederherstellen',
+        'restore_kanban_board': 'Kanban Board wiederherstellen',
+        'restore_kanban_board_message': 'Sind Sie sicher, dass Sie dieses Kanban Board wiederherstellen möchten?',
+    },
+    'es': {
+        'add': 'Agregar',
+        'archive': 'Archivo',
+        'archive_kanban_board': 'Archivar tablero Kanban',
+        'archive_kanban_board_message': '¿Está seguro de que desea archivar este tablero Kanban?',
+        'archiving': 'Archivando',
+        'cancel': 'Cancelar',
+        'close': 'Cerrar',
+        'kanban_boards': 'Tableros Kanban',
+        'restore': 'Restaurar',
+        'restore_kanban_board': 'Restaurar tablero Kanban',
+        'restore_kanban_board_message': '¿Está seguro de que desea restaurar este tablero Kanban?',
+    },
+    'it': {
+        'add': 'Aggiungi',
+        'archive': 'Archivio',
+        'archive_kanban_board': 'Archivia Bacheca Kanban',
+        'archive_kanban_board_message': 'Sei sicuro di voler archiviare questa bacheca Kanban?',
+        'archiving': 'Archiviazione',
+        'cancel': 'Annulla',
+        'close': 'Chiudi',
+        'kanban_boards': 'Bacheche Kanban',
+        'restore': 'Ripristina',
+        'restore_kanban_board': 'Ripristina Bacheca Kanban',
+        'restore_kanban_board_message': 'Sei sicuro di voler ripristinare questa bacheca Kanban?',
+    },
+    'en': {
+        'add': 'Add',
+        'archive': 'Archive',
+        'archive_kanban_board': 'Archive Kanban Board',
+        'archive_kanban_board_message': 'Are you sure you want to archive this Kanban board?',
+        'archiving': 'Archiving',
+        'cancel': 'Cancel',
+        'close': 'Close',
+        'kanban_boards': 'Kanban Boards',
+        'restore': 'Restore',
+        'restore_kanban_board': 'Restore Kanban Board',
+        'restore_kanban_board_message': 'Are you sure you want to restore this Kanban board?',
+    }
+} %}
 {% block js %}
     {{ parent() }}
     <script>
         let variables = {
-            toon: '{{ _GET.toon }}',
-            schrijf: '{{ rights.write }}',
-            lees: '{{ rights.read }}',
-            verwijder: '{{ rights.delete }}',
+            show: '{{ _GET.show }}',
+            write: '{{ rights.write }}',
+            read: '{{ rights.read }}',
+            delete: '{{ rights.delete }}',
+            statuses: [{{ statuses }}],
         }
     </script>
-    <script src="{{ BASE_URL }}/public/javascript/kanban/index.js"></script>
+    <script src="{{ BASE_URL }}/vendor/tigress/kanban-board/public/javascript/kanban/index.js"></script>
 {% endblock %}
-{% block title %}Kanbanborden{% endblock %}
+{% block title %}{{ trans('kanban_boards', translations_i_250624) }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item active">Kanbanborden</li>
+                    <li class="breadcrumb-item active">{{ trans('kanban_boards', translations_i_250624) }}</li>
                 </ol>
             </nav>
         </div>
@@ -28,23 +109,22 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-sm-4">
-                <h3>Kanbanborden {% if toon == 'archief' %}(archief){% endif %}
-                    {% if (toegang) %}
-                        <a class="btn btn-sm btn-outline-dark" href="{{ BASE_URL }}/kanban/instellingen"><i
-                                    class="fa fa-cogs"></i></a>
+                <h3>{{ trans('kanban_boards', translations_i_250624) }}
+                    {% if (access) %}
+                        <a class="btn btn-sm btn-outline-dark" href="{{ BASE_URL }}/kanban/settings"><i class="fa fa-cogs"></i></a>
                     {% endif %}
                 </h3>
             </div>
             <div class="col-sm-4">
             </div>
             <div class="col-sm-4 text-end">
-                {% if _GET.toon == 'archief' %}
-                    <a href="{{ BASE_URL }}/kanban" class="btn btn-warning"><i class="fa fa-archive"></i> Archief</a>
+                {% if _GET.show == 'archive' %}
+                    <a href="{{ BASE_URL }}/kanban" class="btn btn-warning"><i class="fa fa-archive"></i> {{ trans('archive', translations_i_250624) }}</a>
                 {% else %}
-                    <a href="{{ BASE_URL }}/kanban?toon=archief" class="btn btn-outline-warning"><i class="fa fa-archive"></i> Archief</a>
+                    <a href="{{ BASE_URL }}/kanban?show=archive" class="btn btn-outline-warning"><i class="fa fa-archive"></i> {{ trans('archive', translations_i_250624) }}</a>
                 {% endif %}
                 {% if rights.write %}
-                    <a href="{{ BASE_URL }}/kanban/edit/0" class="btn btn-success"><i class="fa-solid fa-plus"></i> Toevoegen</a>
+                    <a href="{{ BASE_URL }}/kanban/edit/0" class="btn btn-success"><i class="fa-solid fa-plus"></i> {{ trans('add', translations_i_250624) }}</a>
                 {% endif %}
             </div>
         </div>
@@ -61,46 +141,46 @@
         </div>
     </div>
 
-    {# Modal Archiveren Project #}
-    <form action="{{ BASE_URL }}/kanban/archiveren" method="post" enctype="multipart/form-data">
-        <div class="modal fade" id="modalArchiveren" tabindex="-1" aria-labelledby="modalArchiverenLabel"
+    {# Modal Archive Project #}
+    <form action="{{ BASE_URL }}/kanban/archive" method="post" enctype="multipart/form-data">
+        <div class="modal fade" id="modalArchive" tabindex="-1" aria-labelledby="modalArchiveLabel"
              aria-hidden="true" style="color: black">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalArchiverenLabel">Kanbanbord archiveren</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title" id="modalArchiverenLabel">{{ trans('archive_kanban_board', translations_i_250624) }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', translations_i_250624) }}"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Weet u zeker dat u dit kanbanbord wilt archiveren?</p>
+                        <p>{{ trans('archive_kanban_board_message', translations_i_250624) }}</p>
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="id" id="id">
-                        <button type="submit" class="btn btn-success" id="btnArchiveren">Archiveren</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuleren</button>
+                        <button type="submit" class="btn btn-success" id="btnArchiveren">{{ trans('archiving', translations_i_250624) }}</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('cancel', translations_i_250624) }}</button>
                     </div>
                 </div>
             </div>
         </div>
     </form>
 
-    {# Modal Herstellen Project #}
-    <form action="{{ BASE_URL }}/kanban/herstellen" method="post" enctype="multipart/form-data">
-        <div class="modal fade" id="modalHerstellen" tabindex="-1" aria-labelledby="modalHerstellenLabel"
+    {# Modal Restore Project #}
+    <form action="{{ BASE_URL }}/kanban/restore" method="post" enctype="multipart/form-data">
+        <div class="modal fade" id="modalRestore" tabindex="-1" aria-labelledby="modalRestoreLabel"
              aria-hidden="true" style="color: black">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalArchiverenLabel">Kanbanbord herstellen</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title" id="modalRestoreLabel">{{ trans('restore_kanban_board', translations_i_250624) }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', translations_i_250624) }}"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Weet u zeker dat u dit kanbanbord wilt herstellen?</p>
+                        <p>{{ trans('restore_kanban_board_message', translations_i_250624) }}</p>
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="id" id="id">
-                        <button type="submit" class="btn btn-success" id="btnArchiveren">Herstellen</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuleren</button>
+                        <button type="submit" class="btn btn-success" id="btnRestore">{{ trans('restore', translations_i_250624) }}</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('cancel', translations_i_250624) }}</button>
                     </div>
                 </div>
             </div>

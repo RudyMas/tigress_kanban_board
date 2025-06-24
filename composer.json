@@ -23,7 +23,8 @@
     "psr-4": {
       "Tigress\\": "src/",
       "Controller\\": "src/controllers",
-      "Repository\\": "src/repositories"
+      "Repository\\": "src/repositories",
+      "Service\\": "src/services"
     }
   }
 }

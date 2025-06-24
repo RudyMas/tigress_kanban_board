@@ -3,9 +3,10 @@
 namespace Controller\kanban;
 
 use Repository\KanbansRepo;
-use Repository\KanbansStatussenRepo;
-use Repository\KanbansTakenRepo;
+use Repository\KanbansStatusesRepo;
+use Repository\KanbansTasksRepo;
 use Repository\UsersRepo;
+use Service\LocalizationService;
 use Tigress\Controller;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
@@ -45,11 +46,13 @@ class KanbanController extends Controller
             TWIG->redirect('/login');
         }
 
-        TWIG->render('kanban/index.twig');
+        TWIG->render('kanban/index.twig', [
+            'statuses' => LocalizationService::getStatuses(CONFIG->website->html_lang),
+        ]);
     }
 
     /**
-     * Edit kanban taak
+     * Edit kanban task
      *
      * @param array $args
      * @return void
@@ -57,33 +60,33 @@ class KanbanController extends Controller
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function editTaak(array $args): void
+    public function editTasks(array $args): void
     {
         SECURITY->checkAccess();
-        SECURITY->checkReferer(['/kanban/bord/*']);
+        SECURITY->checkReferer(['/kanban/board/*']);
         $this->checkRights();
 
-        $kanbansTaken = new KanbansTakenRepo();
-        $kanbansTaken->loadById($args['id']);
-        if ($kanbansTaken->isEmpty()) {
-            $kanbansTaken->new();
+        $kanbansTasks = new KanbansTasksRepo();
+        $kanbansTasks->loadById($args['id']);
+        if ($kanbansTasks->isEmpty()) {
+            $kanbansTasks->new();
         }
-        $kanbansTaak = $kanbansTaken->current();
+        $kanbansTask = $kanbansTasks->current();
 
         $kanbans = new KanbansRepo();
         $kanbans->loadById($args['kanban_id']);
         $kanban = $kanbans->current();
 
-        $kanbansStatussen = new KanbansStatussenRepo();
+        $kanbansStatuses = new KanbansStatusesRepo();
 
         $users = new UsersRepo();
 
         TWIG->render('kanban/edit_kanban_taak.twig', [
-            'kanbansTaak' => $kanbansTaak,
+            'kanbansTask' => $kanbansTask,
             'kanban' => $kanban,
-            'kanbansStatusOptions' => $kanbansStatussen->getSelectOptions($kanbansTaak->kanban_status_id),
-            'selectOptiesWorkers' => $users->getSelectOptionsWorkers(
-                json_decode($kanbansTaak->worker_ids, true),
+            'kanbansStatusOptions' => $kanbansStatuses->getSelectOptions($kanbansTask->kanban_status_id),
+            'selectOptionsWorkers' => $users->getSelectOptionsWorkers(
+                json_decode($kanbansTask->worker_ids, true),
                 json_decode($kanban->team_member_ids, true)
             ),
         ]);
@@ -108,7 +111,7 @@ class KanbanController extends Controller
             $kanbans->new();
         }
         $kanban = $kanbans->current();
-        $tegelLijst = $kanbans->getTegelLijst();
+        $tileList = $kanbans->getTegelLijst();
 
         if ($kanban->id === 0) {
             $kanban->product_owner_ids = '["' . $_SESSION['user']['id'] . '"]';
@@ -118,14 +121,14 @@ class KanbanController extends Controller
 
         TWIG->render('kanban/edit_kanban.twig', [
             'kanban' => $kanban,
-            'selectOptiesProductOwners' => $users->getSelectOptions(json_decode($kanban->product_owner_ids, true)),
-            'selectOptiesTeamMembers' => $users->getSelectOptions(json_decode($kanban->team_member_ids, true)),
-            'tegelLijst' => $tegelLijst,
+            'selectOptionsProductOwners' => $users->getSelectOptions(json_decode($kanban->product_owner_ids, true)),
+            'selectOptionsTeamMembers' => $users->getSelectOptions(json_decode($kanban->team_member_ids, true)),
+            'tileLList' => $tileList,
         ]);
     }
 
     /**
-     * Kanban informatie taak
+     * Kanban information task
      *
      * @param array $args
      * @return void
@@ -133,45 +136,28 @@ class KanbanController extends Controller
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function informatieTaak(array $args): void
+    public function informationTasks(array $args): void
     {
         $this->checkRights();
 
-        $kanbansTaken = new KanbansTakenRepo();
-        $kanbansTaken->loadById($args['id']);
-        $kanbansTaak = $kanbansTaken->current();
+        $kanbansTasks = new KanbansTasksRepo();
+        $kanbansTasks->loadById($args['id']);
+        $kanbansTask = $kanbansTasks->current();
 
         $kanbans = new KanbansRepo();
-        $kanbans->loadById($kanbansTaak->kanban_id);
+        $kanbans->loadById($kanbansTask->kanban_id);
         $kanban = $kanbans->current();
 
         $users = new UsersRepo();
-        $kanbansStatussen = new KanbansStatussenRepo();
+        $kanbansStatuses = new KanbansStatusesRepo();
 
         TWIG->render('kanban/informatie_taak.twig', [
-            'kanbansTaak' => $kanbansTaak,
+            'kanbansTask' => $kanbansTask,
             'kanban' => $kanban,
             'users' => $users,
-            'kanbansStatussen' => $kanbansStatussen,
-            'statussen' => [
-                0 => 'Niet gestart',
-                1 => 'Voorbereiding',
-                2 => 'Ontwikkeling',
-                3 => 'Testfase',
-                4 => 'Afgerond',
-                5 => 'In de wacht',
-            ],
-            'prioriteiten' => [
-                1 => 'ASAP',
-                2 => 'Prio 1',
-                3 => 'Prio 2',
-                4 => 'Prio 3',
-                5 => 'Normaal',
-                6 => 'Tussendoor 1',
-                7 => 'Tussendoor 2',
-                8 => 'Tussendoor 3',
-                9 => 'Niet dringend',
-            ],
+            'kanbansStatuses' => $kanbansStatuses,
+            'statuses' => LocalizationService::getStatuses(CONFIG->website->html_lang),
+            'priorities' => LocalizationService::getPriorities(CONFIG->website->html_lang),
         ]);
     }
 
@@ -184,29 +170,29 @@ class KanbanController extends Controller
      * @throws RuntimeError
      * @throws SyntaxError
      */
-    public function bord(array $args): void
+    public function board(array $args): void
     {
         SECURITY->checkAccess();
         $this->checkRights();
 
-        $kanbansStatussen = new KanbansStatussenRepo();
-        $kanbansStatussen->loadAllActive('sort');
+        $kanbansStatuses = new KanbansStatusesRepo();
+        $kanbansStatuses->loadAllActive('sort');
 
         $kanbans = new KanbansRepo();
         $kanbans->loadById($args['id']);
 
-        $kanbansTaken = new KanbansTakenRepo();
-        $kanbansTaken->loadByWhere([
+        $kanbansTasks = new KanbansTasksRepo();
+        $kanbansTasks->loadByWhere([
             'kanban_id' => $args['id'],
             'active' => 1,
-        ], 'deadline, prioriteit');
+        ], 'deadline, priority');
 
         $users = new UsersRepo();
 
         TWIG->render('kanban/kanban_bord.twig', [
-            'kanbansStatussen' => $kanbansStatussen,
+            'kanbansStatuses' => $kanbansStatuses,
             'kanban' => $kanbans->current(),
-            'kanbansTaken' => $kanbansTaken,
+            'kanbansTasks' => $kanbansTasks,
             'users' => $users,
         ]);
     }
