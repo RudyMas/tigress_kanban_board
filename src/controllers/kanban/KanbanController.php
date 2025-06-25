@@ -19,7 +19,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.24.0
+ * @version 2025.06.25.0
  * @package Controller\KanbanController
  */
 class KanbanController extends Controller
@@ -90,6 +90,7 @@ class KanbanController extends Controller
                 json_decode($kanbansTask->worker_ids, true),
                 json_decode($kanban->team_member_ids, true)
             ),
+            'priorities' => LocalizationService::getPriorities(CONFIG->website->html_lang),
         ]);
     }
 

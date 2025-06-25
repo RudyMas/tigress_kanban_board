@@ -179,8 +179,8 @@
                                                                     <b>{{ trans('workers', translations_kb_250624) }}:</b><br>
                                                                     {{ users.getNames(kanbansTask.worker_ids) }}<br>
                                                                     <b>{{ trans('target_date', translations_kb_250624) }}:</b><br>
-                                                                    {% if (kanbansTaak.deadline != null and kanbansTaak.deadline != '0000-00-00 00:00:00') %}
-                                                                        {{ kanbansTaak.deadline|date('d-m-Y H:i') }}
+                                                                    {% if (kanbansTask.deadline != null and kanbansTask.deadline != '0000-00-00 00:00:00') %}
+                                                                        {{ kanbansTask.deadline|date('d-m-Y H:i') }}
                                                                     {% else %}
                                                                     {{ trans('no_deadline', translations_kb_250624) }}
                                                                     {% endif %}
@@ -192,7 +192,7 @@
                                                                 {% if rights.write %}
                                                                     <a data-bs-toggle="tooltip" title="{{ trans('edit', translations_kb_250624) }}"
                                                                        href="{{ BASE_URL }}/kanban/tasks/edit/{{ kanbansTask.id }}/{{ kanban.id }}"
-                                                                       class="btn btn-sm btn-success">
+                                                                       class="btn btn-sm btn-success mb-1">
                                                                         <i class="fa fa-pencil"></i>
                                                                     </a>
                                                                 {% endif %}
@@ -202,14 +202,14 @@
                                                                             data-bs-target="#modalDelete"
                                                                             data-id="{{ kanbansTask.id }}"
                                                                             data-kanban-id="{{ kanban.id }}"
-                                                                            class="btn btn-danger btn-sm"><i
+                                                                            class="btn btn-danger btn-sm mb-1"><i
                                                                                 class="fa fa-trash-can"></i></button>
                                                                 {% endif %}
                                                             </div>
                                                             <div class="col-md-6 text-end">
                                                                 <a data-bs-toggle="tooltip" title="{{ trans('information', translations_kb_250624) }}"
                                                                    href="{{ BASE_URL }}/kanban/tasks/information/{{ kanbansTask.id }}/{{ kanban.id }}"
-                                                                   class="btn btn-sm btn-info">
+                                                                   class="btn btn-sm btn-info mb-1">
                                                                     <i class="fa-regular fa-eye"></i>
                                                                 </a>
                                                             </div>

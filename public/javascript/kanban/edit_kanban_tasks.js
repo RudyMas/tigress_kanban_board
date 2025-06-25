@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
+    window.tigress = window.tigress || {};
+
     let script_upload_image = '/public/scripts/tinymce_upload_image.php?folder=kanban';
     let script_list_images = '/public/scripts/tinymce_list_images.php?folder=kanban';
     let img_path = '/public/images/tinymce/kanban/';
@@ -8,8 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
         selector: 'textarea',
         promotion: false,
         theme: 'silver',
-        language_url: '/node_modules/tinymce-i18n/langs7/nl_BE.js',
-        language: 'nl_BE',
+        language_url: tigress.languageTinymce.url,
+        language: tigress.languageTinymce.lang,
         paste_data_images: true,
         height: 300,
         plugins: ['lists', 'code', 'image', 'link'],

@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Tooltips initialiseren
     initTooltips();
 
-    // Alleen als we schrijf-rechten hebben
+    // Only when the user has write permissions
     if (variables.write) {
         const taskLists = document.querySelectorAll('.task-list');
 
@@ -19,10 +19,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     if (!taskId || !newStatus) return;
 
-                    // Optional: remove class
                     newStatusList.classList.remove('ui-droppable-active');
 
-                    // Backend call
                     fetch('/kanban/board/update/status', {
                         method: 'POST',
                         headers: {
@@ -47,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Modal vullen
     const modalDelete = document.getElementById('modalDelete');
     if (modalDelete) {
         modalDelete.addEventListener('show.bs.modal', function (event) {
@@ -61,6 +58,5 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Automatisch refresh na 5 minuten
     setTimeout(() => location.reload(), 300000);
 });
