@@ -1,0 +1,222 @@
+{% extends 'base.twig' %}
+{% set translations_it_250625 = {
+    'nl': {
+        'description': 'Omschrijving',
+        'end_date': 'Einddatum',
+        'executors': 'Uitvoerder(s)',
+        'kanban_boards': 'Kanbanborden',
+        'no_deadline': 'Geen deadline',
+        'priority': 'Prioriteit',
+        'product_owner': 'Producteigenaar',
+        'remark': 'Opmerking',
+        'start_date': 'Startdatum',
+        'status': 'Status',
+        'target_date': 'Streefdatum',
+        'task_information': 'Taak Informatie',
+        'team_members': 'Teamleden',
+        'ticket_number': 'Ticketnummer',
+        'tile': 'Tegel',
+    },
+    'fr': {
+        'description': 'Description',
+        'end_date': 'Date de fin',
+        'executors': 'Exécuteur(s)',
+        'kanban_boards': 'Tableaux Kanban',
+        'no_deadline': 'Pas de date limite',
+        'priority': 'Priorité',
+        'product_owner': 'Propriétaire du produit',
+        'remark': 'Remarque',
+        'task_information': 'Information de la tâche',
+        'start_date': 'Date de début',
+        'status': 'Statut',
+        'target_date': 'Date cible',
+        'team_members': 'Membres de l\'équipe',
+        'ticket_number': 'Numéro de ticket',
+        'tile': 'Tuile',
+    },
+    'de': {
+        'description': 'Beschreibung',
+        'end_date': 'Enddatum',
+        'executors': 'Ausführende(r)',
+        'kanban_boards': 'Kanban Boards',
+        'no_deadline': 'Keine Frist',
+        'priority': 'Priorität',
+        'product_owner': 'Produktverantwortlicher',
+        'remark': 'Anmerkung',
+        'start_date': 'Startdatum',
+        'status': 'Status',
+        'target_date': 'Zieldatum',
+        'task_information': 'Aufgabeninformation',
+        'team_members': 'Teammitglieder',
+        'ticket_number': 'Ticketnummer',
+        'tile': 'Kachel',
+    },
+    'es': {
+        'description': 'Descripción',
+        'end_date': 'Fecha de finalización',
+        'executors': 'Ejecutor(es)',
+        'kanban_boards': 'Tableros Kanban',
+        'no_deadline': 'Sin fecha límite',
+        'priority': 'Prioridad',
+        'product_owner': 'Propietario del producto',
+        'remark': 'Observación',
+        'start_date': 'Fecha de inicio',
+        'status': 'Estado',
+        'target_date': 'Fecha objetivo',
+        'task_information': 'Información de la tarea',
+        'team_members': 'Miembros del equipo',
+        'ticket_number': 'Número de ticket',
+        'tile': 'Azulejo',
+    },
+    'it': {
+        'description': 'Descrizione',
+        'end_date': 'Data di fine',
+        'executors': 'Esecutore(i)',
+        'kanban_boards': 'Bacheche Kanban',
+        'no_deadline': 'Nessuna scadenza',
+        'priority': 'Priorità',
+        'product_owner': 'Proprietario del prodotto',
+        'remark': 'Osservazione',
+        'start_date': 'Data di inizio',
+        'status': 'Stato',
+        'target_date': 'Data obiettivo',
+        'task_information': 'Informazioni attività',
+        'team_members': 'Membri del team',
+        'ticket_number': 'Numero del ticket',
+        'tile': 'Tegola',
+    },
+    'en': {
+        'description': 'Description',
+        'end_date': 'End Date',
+        'executors': 'Executor(s)',
+        'kanban_boards': 'Kanban Boards',
+        'no_deadline': 'No deadline',
+        'priority': 'Priority',
+        'product_owner': 'Product Owner',
+        'remark': 'Remark',
+        'start_date': 'Start Date',
+        'status': 'Status',
+        'target_date': 'Target Date',
+        'task_information': 'Task Information',
+        'team_members': 'Team Members',
+        'ticket_number': 'Ticket Number',
+        'tile': 'Tile',
+    }
+} %}
+{% block title %}{{ trans('task_information', translations_it_250625) }}{% endblock %}
+{% block breadcrumb %}
+    <nav aria-label="breadcrumb" data-bs-theme="dark">
+        <ol class="breadcrumb" style="color: white">
+            <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
+            <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban">{{ trans('kanban_boards', translations_it_250625) }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban/board/{{ kanban.id }}">{{ kanban.tile }}: {{ kanban.name }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ trans('task_information', translations_it_250625) }}</li>
+        </ol>
+    </nav>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row mb-2 break-out90">
+            <div class="col-sm-12">
+                <h3>{{ trans('task_information', translations_it_250625) }}</h3>
+            </div>
+        </div>
+        <div class="row mb-2 break-out90">
+            <div class="col-md-12">
+                <fieldset class="mt-2">
+                    <div class="row mb-2">
+                        <div class="col-md-4" style="border-right: 1px solid lightgray">
+                            <div class="row mb-2">
+                                <div class="col-md-12">
+                                    <h4>{{ trans('tile', translations_it_250625) }}: {{ kanban.tile }}<br>{{ kanban.name }}</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ trans('status', translations_it_250625) }}: {{ statuses[kanban.status] }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ trans('product_owner', translations_it_250625) }}: {{ users.getNames(kanban.product_owner_ids) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ trans('team_members', translations_it_250625) }}: {{ users.getNames(kanban.team_member_ids) }}
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-6">
+                                    {{ trans('start_date', translations_it_250625) }}: {{ kanban.start_date|date('d-m-Y H:i') }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ trans('end_date', translations_it_250625) }}: {{ kanban.end_date|date('d-m-Y H:i') }}
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-12">
+                                    <fieldset class="img-responsive">
+                                        <legend>{{ trans('description', translations_it_250625) }}</legend>
+                                        <p>{{ kanban.description|raw }}</p>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8" style="border-left: 1px solid lightgray">
+                            <div class="row mb-2">
+                                <div class="col-md-8">
+                                    <h4>{{ kanbansTaak.name }}</h4>
+                                </div>
+                                <div class="col-md-4 text-end">
+                                    {{ trans('status', translations_it_250625) }}: {{ kanbansStatuses.getStatus(kanbansTask.kanban_status_id) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ trans('ticket_number', translations_it_250625) }}: {{ kanbansTask.kanban_id }}-{{ kanbansTask.id }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ trans('priority', translations_it_250625) }}: {{ prioriteiten[kanbansTask.priority] }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ trans('executors', translations_it_250625) }}: {{ users.getNames(kanbansTask.worker_ids) }}
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-12">
+                                    {{ trans('target_date', translations_it_250625) }}:
+                                    {% if (kanbansTask.deadline != null and kanbansTask.deadline != '0000-00-00 00:00:00') %}
+                                        {{ kanbansTask.deadline|date('d-m-Y H:i') }}
+                                    {% else %}
+                                        {{ trans('no_deadline', translations_it_250625) }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-12">
+                                    <fieldset class="img-responsive">
+                                        <legend>{{ trans('description', translations_it_250625) }}</legend>
+                                        <p>{{ kanbansTask.description|raw }}</p>
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-12">
+                                    <fieldset class="img-responsive">
+                                        <legend>{{ trans('remark', translations_it_250625) }}</legend>
+                                        <p>{{ kanbansTask.remark|raw }}</p>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+{% endblock %}

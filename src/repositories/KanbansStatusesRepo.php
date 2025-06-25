@@ -37,7 +37,10 @@ class KanbansStatusesRepo extends Repository
      */
     public function getStatus(int $id): string
     {
+        $language = substr(CONFIG->website->html_lang, 0, 2) ?? 'en';
+        $field = 'name_' . $language;
+
         $this->loadById($id);
-        return $this->current()->name_nl ?? $this->current()->name_en ?? '';
+        return $this->current()->$field;
     }
 }

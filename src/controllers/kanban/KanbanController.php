@@ -8,6 +8,7 @@ use Repository\KanbansTasksRepo;
 use Repository\UsersRepo;
 use Service\LocalizationService;
 use Tigress\Controller;
+use Tigress\Core;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
@@ -81,7 +82,7 @@ class KanbanController extends Controller
 
         $users = new UsersRepo();
 
-        TWIG->render('kanban/edit_kanban_taak.twig', [
+        TWIG->render('kanban/edit_kanban_tasks.twig', [
             'kanbansTask' => $kanbansTask,
             'kanban' => $kanban,
             'kanbansStatusOptions' => $kanbansStatuses->getSelectOptions($kanbansTask->kanban_status_id),
@@ -152,7 +153,7 @@ class KanbanController extends Controller
         $users = new UsersRepo();
         $kanbansStatuses = new KanbansStatusesRepo();
 
-        TWIG->render('kanban/informatie_taak.twig', [
+        TWIG->render('kanban/information_tasks.twig', [
             'kanbansTask' => $kanbansTask,
             'kanban' => $kanban,
             'users' => $users,
