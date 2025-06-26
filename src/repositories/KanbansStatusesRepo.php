@@ -34,8 +34,14 @@ class KanbansStatusesRepo extends Repository
             'de' => 'Treffen Sie Ihre Wahl',
             'es' => 'Haga su elección',
             'it' => 'Fai la tua scelta',
+            'sv' => 'Gör ditt val',
             'en' => 'Make your choice',
         ];
+
+        if (!isset($makeYourChoice[$language])) {
+            $language = 'en';
+            $field = 'name_en';
+        }
 
         $this->loadAllActive('sort');
         return $this->createOptions($kanban_status_id, $makeYourChoice[$language], $field);

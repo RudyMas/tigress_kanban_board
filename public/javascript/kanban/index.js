@@ -3,94 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const statusTexts = variables.statuses;
 
-    const allTranslations = {
-        nl: {
-            id: 'Id',
-            tile: 'Tegel',
-            project_name: 'Projectnaam',
-            start_date: 'Startdatum',
-            end_date: 'Einddatum',
-            status: 'Status',
-            actions: 'Acties',
-            unknown: 'Onbekend',
-            kanban_board: 'Kanban Bord',
-            restore: 'Herstellen',
-            edit: 'Bewerk',
-            archive: 'Archiveren',
-        },
-        fr: {
-            id: 'Id',
-            tile: 'Tuile',
-            project_name: 'Nom du projet',
-            start_date: 'Date de début',
-            end_date: 'Date de fin',
-            status: 'Statut',
-            actions: 'Actions',
-            unknown: 'Inconnu',
-            kanban_board: 'Tableau Kanban',
-            restore: 'Restaurer',
-            edit: 'Éditer',
-            archive: 'Archiver',
-        },
-        de: {
-            id: 'Id',
-            tile: 'Kachel',
-            project_name: 'Projektname',
-            start_date: 'Startdatum',
-            end_date: 'Enddatum',
-            status: 'Status',
-            actions: 'Aktionen',
-            unknown: 'Unbekannt',
-            kanban_board: 'Kanban Board',
-            restore: 'Wiederherstellen',
-            edit: 'Bearbeiten',
-            archive: 'Archivieren',
-        },
-        es: {
-            id: 'Id',
-            tile: 'Mosaico',
-            project_name: 'Nombre del proyecto',
-            start_date: 'Fecha de inicio',
-            end_date: 'Fecha de finalización',
-            status: 'Estado',
-            actions: 'Acciones',
-            unknown: 'Desconocido',
-            kanban_board: 'Tablero Kanban',
-            restore: 'Restaurar',
-            edit: 'Editar',
-            archive: 'Archivar',
-        },
-        it: {
-            id: 'Id',
-            tile: 'Piastrella',
-            project_name: 'Nome del progetto',
-            start_date: 'Data di inizio',
-            end_date: 'Data di fine',
-            status: 'Stato',
-            actions: 'Azioni',
-            unknown: 'Sconosciuto',
-            kanban_board: 'Bacheca Kanban',
-            restore: 'Ripristina',
-            edit: 'Modifica',
-            archive: 'Archivia',
-        },
-        en: {
-            id: 'Id',
-            tile: 'Tile',
-            project_name: 'Project Name',
-            start_date: 'Start Date',
-            end_date: 'End Date',
-            status: 'Status',
-            actions: 'Actions',
-            unknown: 'Unknown',
-            kanban_board: 'Kanban Board',
-            restore: 'Restore',
-            edit: 'Edit',
-            archive: 'Archive',
-        }
-    }
-
-    const translations = allTranslations[tigress.shortLang] || allTranslations['en'];
+    const base_trans = language.base[tigress.shortLang] || language.base['en'];
+    const translations = language.local[tigress.shortLang] || language.local['en'];
 
     let url = '/kanban/get/1';
     if (variables.show === 'archive') {
@@ -110,12 +24,12 @@ document.addEventListener('DOMContentLoaded', function () {
         responsive: true,
         columns: [
             {
-                title: translations.id,
+                title: base_trans.id,
                 data: 'id',
                 width: '1%'
             },
             {
-                title: translations.tile,
+                title: base_trans.tile,
                 data: 'tile',
                 className: 'text-nowrap',
                 width: '1%'
@@ -126,13 +40,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 width: '10%'
             },
             {
-                title: translations.start_date,
+                title: base_trans.start_date,
                 data: 'start_date',
                 className: 'text-nowrap text-center',
                 width: '1%'
             },
             {
-                title: translations.end_date,
+                title: base_trans.end_date,
                 data: 'end_date',
                 className: 'text-nowrap text-center',
                 width: '1%',
@@ -142,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
 
                     if (data === '0000-00-00 00:00:00') {
-                        return type === 'display' ? `<span class="text-muted">${translations.unknown}</span>` : null;
+                        return type === 'display' ? `<span class="text-muted">${base_trans.unknown}</span>` : null;
                     }
 
                     let formatted = moment(data, 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY');
@@ -164,16 +78,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             },
             {
-                title: translations.status,
+                title: base_trans.status,
                 data: 'status',
                 className: 'text-nowrap text-center',
                 width: '1%',
                 render: function (data) {
-                    return statusTexts[data] || translations.unknown;
+                    return statusTexts[data] || base_trans.unknown;
                 }
             },
             {
-                title: translations.actions,
+                title: base_trans.actions,
                 data: null,
                 className: 'text-nowrap text-center',
                 width: '1%',
@@ -182,12 +96,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     if (variables.delete) {
                         if (variables.show === 'archive') {
-                            actions += ` <button type="button" data-bs-toggle="modal" title="${translations.restore}" data-bs-target="#modalRestore" data-id="${row.id}" class="btn btn-success btn-sm"><i class="fa fa-undo"></i></button>`;
+                            actions += ` <button type="button" data-bs-toggle="modal" title="${base_trans.restore}" data-bs-target="#modalRestore" data-id="${row.id}" class="btn btn-success btn-sm"><i class="fa fa-undo"></i></button>`;
                         } else {
                             if (variables.write) {
-                                actions += ` <a href="/kanban/edit/${row.id}" data-bs-toggle="tooltip" title="${translations.edit}" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></a>`;
+                                actions += ` <a href="/kanban/edit/${row.id}" data-bs-toggle="tooltip" title="${base_trans.edit}" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></a>`;
                             }
-                            actions += ` <button type="button" data-bs-toggle="modal" title="${translations.archive}" data-bs-target="#modalArchive" data-id="${row.id}" class="btn btn-danger btn-sm"><i class="fa fa-archive"></i></button>`;
+                            actions += ` <button type="button" data-bs-toggle="modal" title="${base_trans.archive}" data-bs-target="#modalArchive" data-id="${row.id}" class="btn btn-danger btn-sm"><i class="fa fa-archive"></i></button>`;
                         }
                     }
 
@@ -204,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         return '';
                     }
                     if (data === '0000-00-00 00:00:00') {
-                        return type === 'display' ? `<span class="text-muted">${translations.unknown}</span>` : null;
+                        return type === 'display' ? `<span class="text-muted">${base_trans.unknown}</span>` : null;
                     }
                     return type === 'display'
                         ? moment(data, 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY')

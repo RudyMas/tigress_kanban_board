@@ -8,7 +8,7 @@ namespace Tigress;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.25.3
+ * @version 2025.06.26.0
  * @package Controller\KanbanBoard
  */
 class KanbanBoard
@@ -18,6 +18,6 @@ class KanbanBoard
      */
     public static function version(): string
     {
-        return '2025.06.25';
+        return '2025.06.26';
     }
 }

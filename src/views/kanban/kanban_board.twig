@@ -1,102 +1,4 @@
 {% extends 'base.twig' %}
-{% set translations_kb_250624 = {
-    'nl': {
-        'add_task': 'Taak toevoegen',
-        'close': 'Sluiten',
-        'delete': 'Verwijderen',
-        'edit': 'Aanpassen',
-        'information': 'Informatie',
-        'kanban_board': 'Kanbanbord',
-        'kanban_boards': 'Kanbanborden',
-        'no': 'Nee',
-        'no_deadline': 'Geen deadline',
-        'remove_task': 'Taak verwijderen',
-        'remove_task_message': 'Weet u zeker dat u deze taak wilt verwijderen?',
-        'target_date': 'Streefdatum',
-        'workers': 'Uitvoerder(s)',
-        'yes': 'Ja',
-    },
-    'fr': {
-        'add_task': 'Ajouter une tâche',
-        'close': 'Fermer',
-        'delete': 'Supprimer',
-        'edit': 'Modifier',
-        'information': 'Information',
-        'kanban_board': 'Tableau Kanban',
-        'kanban_boards': 'Tableaux Kanban',
-        'no': 'Non',
-        'no_deadline': 'Pas de date limite',
-        'remove_task': 'Supprimer la tâche',
-        'remove_task_message': 'Êtes-vous sûr de vouloir supprimer cette tâche ?',
-        'target_date': 'Date cible',
-        'workers': 'Travailleur(s)',
-        'yes': 'Oui',
-    },
-    'de': {
-        'add_task': 'Aufgabe hinzufügen',
-        'close': 'Schließen',
-        'delete': 'Löschen',
-        'edit': 'Anpassen',
-        'information': 'Information',
-        'kanban_board': 'Kanban Board',
-        'kanban_boards': 'Kanban Boards',
-        'no': 'Nein',
-        'no_deadline': 'Keine Frist',
-        'remove_task': 'Aufgabe entfernen',
-        'remove_task_message': 'Sind Sie sicher, dass Sie diese Aufgabe entfernen möchten?',
-        'target_date': 'Zieldatum',
-        'workers': 'Arbeiter(in)',
-        'yes': 'Ja',
-    },
-    'es': {
-        'add_task': 'Agregar tarea',
-        'close': 'Cerrar',
-        'delete': 'Eliminar',
-        'edit': 'Editar',
-        'information': 'Información',
-        'kanban_board': 'Tablero Kanban',
-        'kanban_boards': 'Tableros Kanban',
-        'no': 'No',
-        'no_deadline': 'Sin fecha límite',
-        'remove_task': 'Eliminar tarea',
-        'remove_task_message': '¿Está seguro de que desea eliminar esta tarea?',
-        'target_date': 'Fecha objetivo',
-        'workers': 'Trabajador(es)',
-        'yes': 'Sí',
-    },
-    'it': {
-        'add_task': 'Aggiungi attività',
-        'close': 'Chiudi',
-        'delete': 'Elimina',
-        'edit': 'Modifica',
-        'information': 'Informazioni',
-        'kanban_board': 'Bacheca Kanban',
-        'kanban_boards': 'Bacheche Kanban',
-        'no': 'No',
-        'no_deadline': 'Nessuna scadenza',
-        'remove_task': 'Rimuovi attività',
-        'remove_task_message': 'Sei sicuro di voler rimuovere questa attività?',
-        'target_date': 'Data obiettivo',
-        'workers': 'Lavoratore(i)',
-        'yes': 'Sì',
-    },
-    'en': {
-        'add_task': 'Add Task',
-        'close': 'Close',
-        'delete': 'Delete',
-        'edit': 'Edit',
-        'information': 'Information',
-        'kanban_board': 'Kanban Board',
-        'kanban_boards': 'Kanban Boards',
-        'no': 'No',
-        'no_deadline': 'No deadline',
-        'remove_task': 'Remove Task',
-        'remove_task_message': 'Are you sure you want to remove this task?',
-        'target_date': 'Target Date',
-        'workers': 'Worker(s)',
-        'yes': 'Yes',
-    }
-} %}
 {% block css %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ BASE_URL }}/vendor/tigress/kanban-board/public/css/kanban/kanban_board.css">
@@ -111,14 +13,14 @@
     <script src="{{ BASE_URL }}/node_modules/sortablejs/Sortable.min.js"></script>
     <script src="{{ BASE_URL }}/vendor/tigress/kanban-board/public/javascript/kanban/kanban_board.js"></script>
 {% endblock %}
-{% block title %}{{ trans('kanban_board', translations_kb_250624) }} - {{ kanban.tile }}: {{ kanban.name }}{% endblock %}
+{% block title %}{{ trans('kanban_board', translations) }} - {{ kanban.tile }}: {{ kanban.name }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban">{{ trans('kanban_boards', translations_kb_250624) }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban">{{ trans('kanban_boards', translations) }}</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ kanban.tile }}: {{ kanban.name }}</li>
                 </ol>
             </nav>
@@ -143,7 +45,7 @@
                 <h3>{{ kanban.tile }}: {{ kanban.name }}
                     {% if rights.write %}
                         <a href="{{ BASE_URL }}/kanban/tasks/edit/0/{{ kanban.id }}" class="btn btn-sm btn-success"
-                           data-bs-toggle="tooltip" title="{{ trans('add_task', translations_kb_250624) }}">
+                           data-bs-toggle="tooltip" title="{{ trans('add_task', translations) }}">
                             <i class="fa fa-plus"></i>
                         </a>
                     {% endif %}
@@ -176,13 +78,13 @@
                                                         <div class="row mb-2">
                                                             <div class="col-md-12 text-start">
                                                                 <p style="font-size: 0.8em">
-                                                                    <b>{{ trans('workers', translations_kb_250624) }}:</b><br>
+                                                                    <b>{{ trans('executors', base_trans) }}:</b><br>
                                                                     {{ users.getNames(kanbansTask.worker_ids) }}<br>
-                                                                    <b>{{ trans('target_date', translations_kb_250624) }}:</b><br>
+                                                                    <b>{{ trans('target_date', base_trans) }}:</b><br>
                                                                     {% if (kanbansTask.deadline != null and kanbansTask.deadline != '0000-00-00 00:00:00') %}
                                                                         {{ kanbansTask.deadline|date('d-m-Y H:i') }}
                                                                     {% else %}
-                                                                    {{ trans('no_deadline', translations_kb_250624) }}
+                                                                    {{ trans('no_deadline', base_trans) }}
                                                                     {% endif %}
                                                                 </p>
                                                             </div>
@@ -190,7 +92,7 @@
                                                         <div class="row">
                                                             <div class="col-md-6 text-start">
                                                                 {% if rights.write %}
-                                                                    <a data-bs-toggle="tooltip" title="{{ trans('edit', translations_kb_250624) }}"
+                                                                    <a data-bs-toggle="tooltip" title="{{ trans('edit', base_trans) }}"
                                                                        href="{{ BASE_URL }}/kanban/tasks/edit/{{ kanbansTask.id }}/{{ kanban.id }}"
                                                                        class="btn btn-sm btn-success mb-1">
                                                                         <i class="fa fa-pencil"></i>
@@ -198,7 +100,7 @@
                                                                 {% endif %}
                                                                 {% if rights.delete %}
                                                                     <button type="button" data-bs-toggle="modal"
-                                                                            title="{{ trans('delete', translations_kb_250624) }}"
+                                                                            title="{{ trans('delete', base_trans) }}"
                                                                             data-bs-target="#modalDelete"
                                                                             data-id="{{ kanbansTask.id }}"
                                                                             data-kanban-id="{{ kanban.id }}"
@@ -207,7 +109,7 @@
                                                                 {% endif %}
                                                             </div>
                                                             <div class="col-md-6 text-end">
-                                                                <a data-bs-toggle="tooltip" title="{{ trans('information', translations_kb_250624) }}"
+                                                                <a data-bs-toggle="tooltip" title="{{ trans('information', base_trans) }}"
                                                                    href="{{ BASE_URL }}/kanban/tasks/information/{{ kanbansTask.id }}/{{ kanban.id }}"
                                                                    class="btn btn-sm btn-info mb-1">
                                                                     <i class="fa-regular fa-eye"></i>
@@ -235,17 +137,17 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalDeleteLabel">{{ trans('remove_task', translations_kb_250624) }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', translations_kb_250624) }}"></button>
+                        <h5 class="modal-title" id="modalDeleteLabel">{{ trans('remove_task', translations) }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', base_trans) }}"></button>
                     </div>
                     <div class="modal-body">
-                        <p>{{ trans('remove_task_message', translations_kb_250624) }}</p>
+                        <p>{{ trans('remove_task_message', translations) }}</p>
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="id" id="id">
                         <input type="hidden" name="kanban_id" id="kanban_id">
-                        <button type="submit" class="btn btn-success" id="btnDelete">{{ trans('yes', translations_kb_250624) }}</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', translations_kb_250624) }}</button>
+                        <button type="submit" class="btn btn-success" id="btnDelete">{{ trans('yes', base_trans) }}</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', base_trans) }}</button>
                     </div>
                 </div>
             </div>

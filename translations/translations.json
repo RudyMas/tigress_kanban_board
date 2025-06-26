@@ -1,0 +1,113 @@
+{
+  "nl": {
+    "add_task": "Taak toevoegen",
+    "archive_kanban_board": "Kanbanbord archiveren",
+    "archive_kanban_board_message": "Weet u zeker dat u dit kanbanbord wilt archiveren?",
+    "edit_task": "Taak Aanpassen",
+    "kanban_board": "Kanbanbord",
+    "kanban_boards": "Kanbanborden",
+    "project_name": "Project Naam",
+    "remove_task": "Taak verwijderen",
+    "remove_task_message": "Weet u zeker dat u deze taak wilt verwijderen?",
+    "restore_kanban_board": "Kanbanbord herstellen",
+    "restore_kanban_board_message": "Weet u zeker dat u dit kanbanbord wilt herstellen?",
+    "task_information": "Taakinformatie",
+    "task_name": "Taak Naam"
+
+  },
+  "fr": {
+    "add_task": "Ajouter une tâche",
+    "archive_kanban_board": "Archiver le tableau Kanban",
+    "archive_kanban_board_message": "Êtes-vous sûr de vouloir archiver ce tableau Kanban ?",
+    "edit_task": "Modifier la tâche",
+    "kanban_board": "Tableau Kanban",
+    "kanban_boards": "Tableaux Kanban",
+    "project_name": "Nom du projet",
+    "remove_task": "Supprimer la tâche",
+    "remove_task_message": "Êtes-vous sûr de vouloir supprimer cette tâche ?",
+    "restore_kanban_board": "Restaurer le tableau Kanban",
+    "restore_kanban_board_message": "Êtes-vous sûr de vouloir restaurer ce tableau Kanban ?",
+    "task_information": "Informations sur la tâche",
+    "task_name": "Nom de la tâche"
+
+  },
+  "de": {
+    "add_task": "Aufgabe hinzufügen",
+    "archive_kanban_board": "Kanban Board archivieren",
+    "archive_kanban_board_message": "Sind Sie sicher, dass Sie dieses Kanban Board archivieren möchten?",
+    "edit_task": "Aufgabe bearbeiten",
+    "kanban_board": "Kanban Board",
+    "kanban_boards": "Kanban Boards",
+    "project_name": "Projektname",
+    "remove_task": "Aufgabe entfernen",
+    "remove_task_message": "Sind Sie sicher, dass Sie diese Aufgabe entfernen möchten?",
+    "restore_kanban_board": "Kanban Board wiederherstellen",
+    "restore_kanban_board_message": "Sind Sie sicher, dass Sie dieses Kanban Board wiederherstellen möchten?",
+    "task_information": "Aufgabeninformation",
+    "task_name": "Aufgabenname"
+
+  },
+  "es": {
+    "add_task": "Agregar tarea",
+    "archive_kanban_board": "Archivar tablero Kanban",
+    "archive_kanban_board_message": "¿Está seguro de que desea archivar este tablero Kanban?",
+    "edit_task": "Editar Tarea",
+    "kanban_board": "Tablero Kanban",
+    "kanban_boards": "Tableros Kanban",
+    "project_name": "Nombre del proyecto",
+    "remove_task": "Eliminar tarea",
+    "remove_task_message": "¿Está seguro de que desea eliminar esta tarea?",
+    "restore_kanban_board": "Restaurar tablero Kanban",
+    "restore_kanban_board_message": "¿Está seguro de que desea restaurar este tablero Kanban?",
+    "task_information": "Información de la tarea",
+    "task_name": "Nombre de la tarea"
+
+  },
+  "it": {
+    "add_task": "Aggiungi attività",
+    "archive_kanban_board": "Archivia Bacheca Kanban",
+    "archive_kanban_board_message": "Sei sicuro di voler archiviare questa bacheca Kanban?",
+    "edit_task": "Modifica attività",
+    "kanban_board": "Bacheca Kanban",
+    "kanban_boards": "Bacheche Kanban",
+    "project_name": "Nome del Progetto",
+    "remove_task": "Rimuovi attività",
+    "remove_task_message": "Sei sicuro di voler rimuovere questa attività?",
+    "restore_kanban_board": "Ripristina Bacheca Kanban",
+    "restore_kanban_board_message": "Sei sicuro di voler ripristinare questa bacheca Kanban?",
+    "task_information": "Informazioni sull'attività",
+    "task_name": "Nome attività"
+
+  },
+  "sv": {
+    "add_task": "Lägg till uppgift",
+    "archive_kanban_board": "Arkivera Kanban-tavla",
+    "archive_kanban_board_message": "Är du säker på att du vill arkivera denna Kanban-tavla?",
+    "edit_task": "Redigera uppgift",
+    "kanban_board": "Kanban-tavla",
+    "kanban_boards": "Kanban-tavlor",
+    "project_name": "Projektnamn",
+    "remove_task": "Ta bort uppgift",
+    "remove_task_message": "Är du säker på att du vill ta bort denna uppgift?",
+    "restore_kanban_board": "Återställ Kanban-tavla",
+    "restore_kanban_board_message": "Är du säker på att du vill återställa denna Kanban-tavla?",
+    "task_information": "Uppgiftsinformation",
+    "task_name": "Uppgiftsnamn"
+  },
+  "en": {
+    "add_task": "Add Task",
+    "archive_kanban_board": "Archive Kanban Board",
+    "archive_kanban_board_message": "Are you sure you want to archive this Kanban board?",
+    "edit_task": "Edit Task",
+    "kanban_board": "Kanban Board",
+    "kanban_boards": "Kanban Boards",
+    "project_name": "Project Name",
+    "remove_task": "Remove Task",
+    "remove_task_message": "Are you sure you want to remove this task?",
+    "restore_kanban_board": "Restore Kanban Board",
+    "restore_kanban_board_message": "Are you sure you want to restore this Kanban board?",
+    "task_information": "Task Information",
+    "task_name": "Task Name"
+
+  }
+}
