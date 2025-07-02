@@ -10,20 +10,19 @@
             statuses: {{ statuses|raw }},
         }
         let language = {
-            base: {{ base_trans|json_encode|raw }},
-            local: {{ translations|json_encode|raw }},
-            }
+            translations: {{ translations|json_encode|raw }},
+        }
     </script>
     <script src="{{ BASE_URL }}/vendor/tigress/kanban-board/public/javascript/kanban/index.js"></script>
 {% endblock %}
-{% block title %}{{ trans('kanban_boards', translations) }}{% endblock %}
+{% block title %}{{ __('Kanban Boards') }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item active">{{ trans('kanban_boards', translations) }}</li>
+                    <li class="breadcrumb-item active">{{ __('Kanban Boards') }}</li>
                 </ol>
             </nav>
         </div>
@@ -33,7 +32,7 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-sm-4">
-                <h3>{{ trans('kanban_boards', translations) }}
+                <h3>{{ __('Kanban Boards') }}
                     {% if (access) %}
                         <a class="btn btn-sm btn-outline-dark" href="{{ BASE_URL }}/kanban/settings"><i class="fa fa-cogs"></i></a>
                     {% endif %}
@@ -43,12 +42,12 @@
             </div>
             <div class="col-sm-4 text-end">
                 {% if _GET.show == 'archive' %}
-                    <a href="{{ BASE_URL }}/kanban" class="btn btn-warning"><i class="fa fa-archive"></i> {{ trans('archive', base_trans) }}</a>
+                    <a href="{{ BASE_URL }}/kanban" class="btn btn-warning"><i class="fa fa-archive"></i> {{ __('Archive') }}</a>
                 {% else %}
-                    <a href="{{ BASE_URL }}/kanban?show=archive" class="btn btn-outline-warning"><i class="fa fa-archive"></i> {{ trans('archive', base_trans) }}</a>
+                    <a href="{{ BASE_URL }}/kanban?show=archive" class="btn btn-outline-warning"><i class="fa fa-archive"></i> {{ __('Archive') }}</a>
                 {% endif %}
                 {% if rights.write %}
-                    <a href="{{ BASE_URL }}/kanban/edit/0" class="btn btn-success"><i class="fa-solid fa-plus"></i> {{ trans('add', base_trans) }}</a>
+                    <a href="{{ BASE_URL }}/kanban/edit/0" class="btn btn-success"><i class="fa-solid fa-plus"></i> {{ __('Add') }}</a>
                 {% endif %}
             </div>
         </div>
@@ -72,16 +71,16 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalArchiverenLabel">{{ trans('archive_kanban_board', translations) }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', base_trans) }}"></button>
+                        <h5 class="modal-title" id="modalArchiverenLabel">{{ __('Archive Kanban Board') }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Close') }}"></button>
                     </div>
                     <div class="modal-body">
-                        <p>{{ trans('archive_kanban_board_message', translations) }}</p>
+                        <p>{{ __('Are you sure you want to archive this Kanban board?') }}</p>
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="id" id="id">
-                        <button type="submit" class="btn btn-success" id="btnArchiveren">{{ trans('archiving', base_trans) }}</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('cancel', base_trans) }}</button>
+                        <button type="submit" class="btn btn-success" id="btnArchiveren">{{ __('Archiving') }}</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
                     </div>
                 </div>
             </div>
@@ -95,16 +94,16 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalRestoreLabel">{{ trans('restore_kanban_board', translations) }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', base_trans) }}"></button>
+                        <h5 class="modal-title" id="modalRestoreLabel">{{ __('Restore Kanban Board') }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Close') }}"></button>
                     </div>
                     <div class="modal-body">
-                        <p>{{ trans('restore_kanban_board_message', translations) }}</p>
+                        <p>{{ __('Are you sure you want to restore this Kanban board?') }}</p>
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="id" id="id">
-                        <button type="submit" class="btn btn-success" id="btnRestore">{{ trans('restore', base_trans) }}</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('cancel', base_trans) }}</button>
+                        <button type="submit" class="btn btn-success" id="btnRestore">{{ __('Restore') }}</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
                     </div>
                 </div>
             </div>

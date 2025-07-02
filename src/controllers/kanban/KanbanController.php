@@ -18,7 +18,7 @@ use Twig\Error\SyntaxError;
  * @author Rudy Mas <rudy.mas@rudymas.be>
  * @copyright 2025 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.06.26.0
+ * @version 2025.07.02.0
  * @package Controller\KanbanController
  */
 class KanbanController extends Controller
@@ -29,7 +29,7 @@ class KanbanController extends Controller
     public function __construct()
     {
         TWIG->addPath('vendor/tigress/kanban-board/src/views');
-        TWIG->addGlobal('translations', json_decode(file_get_contents(SYSTEM_ROOT . '/vendor/tigress/kanban-board/translations/translations.json'), true));
+        TRANSLATIONS->load(SYSTEM_ROOT . '/vendor/tigress/kanban-board/translations/translations.json');
     }
 
     /**

@@ -9,15 +9,15 @@
     <script src="{{ BASE_URL }}/node_modules/tinymce/themes/silver/theme.min.js"></script>
     <script src="{{ BASE_URL }}/vendor/tigress/kanban-board/public/javascript/kanban/edit_kanban.js"></script>
 {% endblock %}
-{% block title %}{{ trans('kanban_board', translations) }} {% if kanban.id == 0 %}{{ trans('add', base_trans) }}{% else %}{{ trans('edit', base_trans) }}{% endif %}{% endblock %}
+{% block title %}{{ __('Kanban Board') }} {% if kanban.id == 0 %}{{ __('Add') }}{% else %}{{ __('Edit', base_trans) }}{% endif %}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban">{{ trans('kanban_boards', translations) }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ trans('kanban_board', translations) }} {% if kanban.id == 0 %}{{ trans('add', base_trans) }}{% else %}{{ trans('edit', base_trans) }}{% endif %}</li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban">{{ __('Kanban Boards') }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('Kanban Board') }} {% if kanban.id == 0 %}{{ __('Add') }}{% else %}{{ __('Edit') }}{% endif %}</li>
                 </ol>
             </nav>
         </div>
@@ -27,7 +27,7 @@
     <div class="container">
         <div class="row mb-2">
             <div class="col-sm-4">
-                <h3>{{ trans('kanban_board', translations) }} {% if kanban.id == 0 %}{{ trans('add', base_trans) }}{% else %}{{ trans('edit', base_trans) }}{% endif %}</h3>
+                <h3>{{ __('Kanban Board') }} {% if kanban.id == 0 %}{{ __('Add') }}{% else %}{{ __('Edit') }}{% endif %}</h3>
             </div>
             <div class="col-sm-4">
             </div>
@@ -43,12 +43,12 @@
                                 <input type="hidden" name="id" value="{{ kanban.id }}">
                                 <div class="row mb-2">
                                     <div class="col-md-6">
-                                        <label for="naam">{{ trans('project_name', translations) }}</label>
+                                        <label for="naam">{{ __('Project Name') }}</label>
                                         <input type="text" class="form-control" id="name" name="name"
                                                value="{{ kanban.name }}" required>
                                     </div>
                                     <div class="col-md-4">
-                                        <label for="tegel">{{ trans('tile', base_trans) }}</label>
+                                        <label for="tegel">{{ __('Tile') }}</label>
                                         <input class="form-control" id="tile" name="tile"
                                                value="{{ kanban.tile }}" list="tileList" required>
                                         <datalist id="tileList">
@@ -58,7 +58,7 @@
                                         </datalist>
                                     </div>
                                     <div class="col-md-2">
-                                        <label for="status">{{ trans('status', base_trans) }}</label>
+                                        <label for="status">{{ __('Status') }}</label>
                                         <select class="form-select" id="status" name="status">
                                             {% for key, value in statusList %}
                                                 <option value="{{ key }}"{% if kanban.status == key %} selected{% endif %}>
@@ -70,13 +70,13 @@
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-md-6">
-                                        <label for="product_owner_ids">{{ trans('product_owners', base_trans) }}</label>
+                                        <label for="product_owner_ids">{{ __('Product Owner(s)') }}</label>
                                         <select class="form-select" id="product_owner_ids" name="product_owner_ids[]" multiple>
                                             {{ selectOptionsProductOwners|raw }}
                                         </select>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="team_member_ids">{{ trans('team_members', base_trans) }}</label>
+                                        <label for="team_member_ids">{{ __('Team Member(s)') }}</label>
                                         <select class="form-select" id="team_member_ids" name="team_member_ids[]"
                                                 multiple>
                                             {{ selectOptionsTeamMembers|raw }}
@@ -85,19 +85,19 @@
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-md-6">
-                                        <label for="start_date">{{ trans('start_date', base_trans) }}</label>
+                                        <label for="start_date">{{ __('Start date') }}</label>
                                         <input type="datetime-local" class="form-control" id="start_date"
                                                name="start_date" value="{{ kanban.start_date }}">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="end_date">{{ trans('end_date', base_trans) }}</label>
+                                        <label for="end_date">{{ __('End date') }}</label>
                                         <input type="datetime-local" class="form-control" id="end_date"
                                                name="end_date" value="{{ kanban.end_date }}">
                                     </div>
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-md-12">
-                                        <label for="description">{{ trans('description', base_trans) }}</label>
+                                        <label for="description">{{ __('Description') }}</label>
                                         <textarea class="form-control" id="description" name="description"
                                                   rows="3">{{ kanban.description }}</textarea>
                                     </div>
@@ -108,10 +108,10 @@
                     <div class="row mb-2">
                         <div class="col-md-12">
                             <button type="submit" class="btn btn-success" id="save_project"><i class="fa fa-save"></i>
-                                {{ trans('save', base_trans) }}
+                                {{ __('Save') }}
                             </button>
                             <a href="javascript:history.back()" class="btn btn-danger"><i class="fa fa-times"></i>
-                                {{ trans('cancel', base_trans) }}</a>
+                                {{ __('Cancel') }}</a>
                         </div>
                     </div>
                 </form>

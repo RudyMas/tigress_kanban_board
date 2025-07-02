@@ -13,14 +13,14 @@
     <script src="{{ BASE_URL }}/node_modules/sortablejs/Sortable.min.js"></script>
     <script src="{{ BASE_URL }}/vendor/tigress/kanban-board/public/javascript/kanban/kanban_board.js"></script>
 {% endblock %}
-{% block title %}{{ trans('kanban_board', translations) }} - {{ kanban.tile }}: {{ kanban.name }}{% endblock %}
+{% block title %}{{ __('Kanban board') }} - {{ kanban.tile }}: {{ kanban.name }}{% endblock %}
 {% block breadcrumb %}
     <div class="row mb-2">
         <div class="col-md-12">
             <nav aria-label="breadcrumb" data-bs-theme="dark">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban">{{ trans('kanban_boards', translations) }}</a></li>
+                    <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban">{{ __('Kanban boards') }}</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ kanban.tile }}: {{ kanban.name }}</li>
                 </ol>
             </nav>
@@ -45,7 +45,7 @@
                 <h3>{{ kanban.tile }}: {{ kanban.name }}
                     {% if rights.write %}
                         <a href="{{ BASE_URL }}/kanban/tasks/edit/0/{{ kanban.id }}" class="btn btn-sm btn-success"
-                           data-bs-toggle="tooltip" title="{{ trans('add_task', translations) }}">
+                           data-bs-toggle="tooltip" title="{{ __('Add Task') }}">
                             <i class="fa fa-plus"></i>
                         </a>
                     {% endif %}
@@ -60,7 +60,7 @@
                             <div class="task-board">
                                 {% for kanbansStatus in kanbansStatuses %}
                                     <div class="task-column" data-status="{{ kanbansStatus.id }}">
-                                        <h3>{{ attribute(kanbansStatus, 'name_' ~ lang) ?? attribute(kanbansStatus, 'name_en') ?? 'Onbekend' }}</h3>
+                                        <h3>{{ attribute(kanbansStatus, 'name_' ~ lang) ?? attribute(kanbansStatus, 'name_en') ?? __('Unknown') }}</h3>
                                         <ul class="task-list" id="{{ kanbansStatus.id }}">
                                             {% for kanbansTask in kanbansTasks %}
                                                 {% if kanbansTask.kanban_status_id == kanbansStatus.id %}
@@ -78,13 +78,13 @@
                                                         <div class="row mb-2">
                                                             <div class="col-md-12 text-start">
                                                                 <p style="font-size: 0.8em">
-                                                                    <b>{{ trans('executors', base_trans) }}:</b><br>
+                                                                    <b>{{ __('Executor(s)') }}:</b><br>
                                                                     {{ users.getNames(kanbansTask.worker_ids) }}<br>
-                                                                    <b>{{ trans('target_date', base_trans) }}:</b><br>
+                                                                    <b>{{ __('Target date') }}:</b><br>
                                                                     {% if (kanbansTask.deadline != null and kanbansTask.deadline != '0000-00-00 00:00:00') %}
-                                                                        {{ kanbansTask.deadline|date('d-m-Y H:i') }}
+                                                                        {{ kanbansTask.deadline|date(__('date_time_format')) }}
                                                                     {% else %}
-                                                                    {{ trans('no_deadline', base_trans) }}
+                                                                        {{ __('No deadline') }}
                                                                     {% endif %}
                                                                 </p>
                                                             </div>
@@ -92,7 +92,7 @@
                                                         <div class="row">
                                                             <div class="col-md-6 text-start">
                                                                 {% if rights.write %}
-                                                                    <a data-bs-toggle="tooltip" title="{{ trans('edit', base_trans) }}"
+                                                                    <a data-bs-toggle="tooltip" title="{{ __('Edit') }}"
                                                                        href="{{ BASE_URL }}/kanban/tasks/edit/{{ kanbansTask.id }}/{{ kanban.id }}"
                                                                        class="btn btn-sm btn-success mb-1">
                                                                         <i class="fa fa-pencil"></i>
@@ -100,7 +100,7 @@
                                                                 {% endif %}
                                                                 {% if rights.delete %}
                                                                     <button type="button" data-bs-toggle="modal"
-                                                                            title="{{ trans('delete', base_trans) }}"
+                                                                            title="{{ __('Delete') }}"
                                                                             data-bs-target="#modalDelete"
                                                                             data-id="{{ kanbansTask.id }}"
                                                                             data-kanban-id="{{ kanban.id }}"
@@ -109,7 +109,7 @@
                                                                 {% endif %}
                                                             </div>
                                                             <div class="col-md-6 text-end">
-                                                                <a data-bs-toggle="tooltip" title="{{ trans('information', base_trans) }}"
+                                                                <a data-bs-toggle="tooltip" title="{{ __('Information') }}"
                                                                    href="{{ BASE_URL }}/kanban/tasks/information/{{ kanbansTask.id }}/{{ kanban.id }}"
                                                                    class="btn btn-sm btn-info mb-1">
                                                                     <i class="fa-regular fa-eye"></i>
@@ -137,17 +137,17 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalDeleteLabel">{{ trans('remove_task', translations) }}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ trans('close', base_trans) }}"></button>
+                        <h5 class="modal-title" id="modalDeleteLabel">{{ __('Remove Task') }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Close') }}"></button>
                     </div>
                     <div class="modal-body">
-                        <p>{{ trans('remove_task_message', translations) }}</p>
+                        <p>{{ __('Are you sure you want to remove this task?') }}</p>
                     </div>
                     <div class="modal-footer">
                         <input type="hidden" name="id" id="id">
                         <input type="hidden" name="kanban_id" id="kanban_id">
-                        <button type="submit" class="btn btn-success" id="btnDelete">{{ trans('yes', base_trans) }}</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ trans('no', base_trans) }}</button>
+                        <button type="submit" class="btn btn-success" id="btnDelete">{{ __('Yes') }}</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">{{ __('No') }}</button>
                     </div>
                 </div>
             </div>

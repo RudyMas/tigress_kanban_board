@@ -1,12 +1,12 @@
 {% extends 'base.twig' %}
-{% block title %}{{ trans('task_information', translations) }}{% endblock %}
+{% block title %}{{ __('Task Information') }}{% endblock %}
 {% block breadcrumb %}
     <nav aria-label="breadcrumb" data-bs-theme="dark">
         <ol class="breadcrumb" style="color: white">
             <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
-            <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban">{{ trans('kanban_boards', translations) }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban">{{ __('Kanban Boards') }}</a></li>
             <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban/board/{{ kanban.id }}">{{ kanban.tile }}: {{ kanban.name }}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ trans('task_information', translations) }}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ __('Task Information') }}</li>
         </ol>
     </nav>
 {% endblock %}
@@ -14,7 +14,7 @@
     <div class="container">
         <div class="row mb-2 break-out90">
             <div class="col-sm-12">
-                <h3>{{ trans('task_information', translations) }}</h3>
+                <h3>{{ __('Task Information') }}</h3>
             </div>
         </div>
         <div class="row mb-2 break-out90">
@@ -24,36 +24,46 @@
                         <div class="col-md-4" style="border-right: 1px solid lightgray">
                             <div class="row mb-2">
                                 <div class="col-md-12">
-                                    <h4>{{ trans('tile', base_trans) }}: {{ kanban.tile }}<br>{{ kanban.name }}</h4>
+                                    <h4>{{ __('Tile') }}: {{ kanban.tile }}<br>{{ kanban.name }}</h4>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    {{ trans('status', base_trans) }}: {{ statuses[kanban.status] }}
+                                    {{ __('Status') }}: {{ statuses[kanban.status] }}
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    {{ trans('product_owners', base_trans) }}: {{ users.getNames(kanban.product_owner_ids) }}
+                                    {{ __('Product Owner(s)') }}: {{ users.getNames(kanban.product_owner_ids) }}
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    {{ trans('team_members', base_trans) }}: {{ users.getNames(kanban.team_member_ids) }}
+                                    {{ __('Team Member(s)') }}: {{ users.getNames(kanban.team_member_ids) }}
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-6">
-                                    {{ trans('start_date', base_trans) }}: {{ kanban.start_date|date('d-m-Y H:i') }}
+                                    {{ __('Start date') }}:
+                                    {% if (kanbanTask.start_date != null and kanbanTask.start_date != '0000-00-00 00:00:00') %}
+                                        {{ kanban.start_date|date(__('date_time_format')) }}
+                                    {% else %}
+                                        {{ __('No start date') }}
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-6">
-                                    {{ trans('end_date', base_trans) }}: {{ kanban.end_date|date('d-m-Y H:i') }}
+                                    {{ __('End date') }}:
+                                    {% if (kanban.end_date != null and kanban.end_date != '0000-00-00 00:00:00') %}
+                                        {{ kanban.end_date|date(__('date_time_format')) }}
+                                    {% else %}
+                                        {{ __('No end date') }}
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-12">
                                     <fieldset class="img-responsive">
-                                        <legend>{{ trans('description', base_trans) }}</legend>
+                                        <legend>{{ __('Description') }}</legend>
                                         <p>{{ kanban.description|raw }}</p>
                                     </fieldset>
                                 </div>
@@ -65,38 +75,38 @@
                                     <h4>{{ kanbansTaak.name }}</h4>
                                 </div>
                                 <div class="col-md-4 text-end">
-                                    {{ trans('status', base_trans) }}: {{ kanbansStatuses.getStatus(kanbansTask.kanban_status_id) }}
+                                    {{ __('Status') }}: {{ kanbansStatuses.getStatus(kanbansTask.kanban_status_id) }}
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    {{ trans('ticket_number', base_trans) }}: {{ kanbansTask.kanban_id }}-{{ kanbansTask.id }}
+                                    {{ __('Ticket number') }}: {{ kanbansTask.kanban_id }}-{{ kanbansTask.id }}
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    {{ trans('priority', base_trans) }}: {{ priorities[kanbansTask.priority] }}
+                                    {{ __('Priority') }}: {{ priorities[kanbansTask.priority] }}
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    {{ trans('executors', base_trans) }}: {{ users.getNames(kanbansTask.worker_ids) }}
+                                    {{ __('Executor(s)') }}: {{ users.getNames(kanbansTask.worker_ids) }}
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-12">
-                                    {{ trans('target_date', base_trans) }}:
+                                    {{ __('Target date') }}:
                                     {% if (kanbansTask.deadline != null and kanbansTask.deadline != '0000-00-00 00:00:00') %}
-                                        {{ kanbansTask.deadline|date('d-m-Y H:i') }}
+                                        {{ kanbansTask.deadline|date(__('date_time_format')) }}
                                     {% else %}
-                                        {{ trans('no_deadline', base_trans) }}
+                                        {{ __('No deadline') }}
                                     {% endif %}
                                 </div>
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md-12">
                                     <fieldset class="img-responsive">
-                                        <legend>{{ trans('description', base_trans) }}</legend>
+                                        <legend>{{ __('Description') }}</legend>
                                         <p>{{ kanbansTask.description|raw }}</p>
                                     </fieldset>
                                 </div>
@@ -104,7 +114,7 @@
                             <div class="row mb-2">
                                 <div class="col-md-12">
                                     <fieldset class="img-responsive">
-                                        <legend>{{ trans('remark', base_trans) }}</legend>
+                                        <legend>{{ __('Remark', base_trans) }}</legend>
                                         <p>{{ kanbansTask.remark|raw }}</p>
                                     </fieldset>
                                 </div>

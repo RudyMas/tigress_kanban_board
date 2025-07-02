@@ -24,20 +24,13 @@ class LocalizationService
      */
     public static function getStatuses(string $lang = 'en'): array
     {
-        $lang = substr($lang, 0, 2);
-        $file = SYSTEM_ROOT . '/vendor/tigress/core/translations/base_' . $lang . '.json';
-        if (!file_exists($file)) {
-            $file = SYSTEM_ROOT . '/vendor/tigress/core/translations/base_en.json';
-        }
-        $translationsFile = json_decode(file_get_contents($file), true);
-
         return [
-            0 => $translationsFile[$lang]['not_started'] ?? 'Not started',
-            1 => $translationsFile[$lang]['in_preparation'] ?? 'In preparation',
-            2 => $translationsFile[$lang]['developing'] ?? 'Developing',
-            3 => $translationsFile[$lang]['testing'] ?? 'Testing',
-            4 => $translationsFile[$lang]['done'] ?? 'Done',
-            5 => $translationsFile[$lang]['on_hold'] ?? 'On hold',
+            0 => __('Not started'),
+            1 => __('In preparation'),
+            2 => __('Developing'),
+            3 => __('Testing'),
+            4 => __('Done'),
+            5 => __('On hold'),
         ];
     }
 
@@ -52,23 +45,16 @@ class LocalizationService
      */
     public static function getPriorities(string $lang = 'en'): array
     {
-        $lang = substr($lang, 0, 2);
-        $file = SYSTEM_ROOT . '/vendor/tigress/core/translations/base_' . $lang . '.json';
-        if (!file_exists($file)) {
-            $file = SYSTEM_ROOT . '/vendor/tigress/core/translations/base_en.json';
-        }
-        $translationsFile = json_decode(file_get_contents($file), true);
-
         return [
-            1 => ($translationsFile[$lang]['critical'] ?? 'Critical') . ' ' . ($translationsFile[$lang]['asap_abr'] ?? '(ASAP)'),
-            2 => $translationsFile[$lang]['high'] ?? 'High',
-            3 => $translationsFile[$lang]['medium_high'] ?? 'Medium-High',
-            4 => $translationsFile[$lang]['medium'] ?? 'Medium',
-            5 => $translationsFile[$lang]['medium_low'] ?? 'Medium-Low',
-            6 => $translationsFile[$lang]['low'] ?? 'Low',
-            7 => $translationsFile[$lang]['very_low'] ?? 'Very Low',
-            8 => $translationsFile[$lang]['optional'] ?? 'Optional',
-            9 => $translationsFile[$lang]['none'] ?? 'None',
+            1 => __('Critical') . ' (' . __('ASAP') . ')',
+            2 => __('High'),
+            3 => __('Medium-High'),
+            4 => __('Medium'),
+            5 => __('Medium-Low'),
+            6 => __('Low'),
+            7 => __('Very Low'),
+            8 => __('Optional'),
+            9 => __('None'),
         ];
     }
 }
