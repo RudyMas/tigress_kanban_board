@@ -91,7 +91,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     className: 'text-nowrap text-center',
                     width: '1%',
                     render: function (data, type, row) {
-                        let actions = `<a href="/kanban/board/${row.id}" data-bs-toggle="tooltip" title="${__('Kanban Board')}" class="btn btn-info btn-sm"><i class="fa fa-tasks"></i></a>`;
+                        let actions = '';
+                        if (variables.read) {
+                            actions = `<a href="/kanban/board/${row.id}" data-bs-toggle="tooltip" title="${__('Kanban Board')}" class="btn btn-info btn-sm"><i class="fa fa-tasks"></i></a>`;
+                        }
 
                         if (variables.write) {
                             actions += ` <a href="/kanban/edit/${row.id}" data-bs-toggle="tooltip" title="${__('Edit')}" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></a>`;
