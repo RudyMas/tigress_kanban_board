@@ -93,13 +93,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     render: function (data, type, row) {
                         let actions = `<a href="/kanban/board/${row.id}" data-bs-toggle="tooltip" title="${__('Kanban Board')}" class="btn btn-info btn-sm"><i class="fa fa-tasks"></i></a>`;
 
+                        if (variables.write) {
+                            actions += ` <a href="/kanban/edit/${row.id}" data-bs-toggle="tooltip" title="${__('Edit')}" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></a>`;
+                        }
+
                         if (variables.delete) {
                             if (variables.show === 'archive') {
                                 actions += ` <button type="button" data-bs-toggle="modal" title="${__('Restore')}" data-bs-target="#modalRestore" data-id="${row.id}" class="btn btn-success btn-sm"><i class="fa fa-undo"></i></button>`;
                             } else {
-                                if (variables.write) {
-                                    actions += ` <a href="/kanban/edit/${row.id}" data-bs-toggle="tooltip" title="${__('Edit')}" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i></a>`;
-                                }
                                 actions += ` <button type="button" data-bs-toggle="modal" title="${__('Archive')}" data-bs-target="#modalArchive" data-id="${row.id}" class="btn btn-danger btn-sm"><i class="fa fa-archive"></i></button>`;
                             }
                         }

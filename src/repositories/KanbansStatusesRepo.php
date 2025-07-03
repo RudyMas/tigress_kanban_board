@@ -28,11 +28,12 @@ class KanbansStatusesRepo extends Repository
         $language = substr(CONFIG->website->html_lang, 0, 2) ?? 'en';
         $field = 'name_' . $language;
 
-        if (!isset($makeYourChoice[$language])) {
+        $this->loadAllActive('sort');
+
+        if (!isset($this->current()->$field)) {
             $field = 'name_en';
         }
 
-        $this->loadAllActive('sort');
         return $this->createOptions($kanban_status_id, __('Make a Choice'), $field);
     }
 
@@ -47,11 +48,12 @@ class KanbansStatusesRepo extends Repository
         $language = substr(CONFIG->website->html_lang, 0, 2) ?? 'en';
         $field = 'name_' . $language;
 
-        if (!isset($makeYourChoice[$language])) {
+        $this->loadById($id);
+
+        if (!isset($this->current()->$field)) {
             $field = 'name_en';
         }
 
-        $this->loadById($id);
         return $this->current()->$field;
     }
 }
