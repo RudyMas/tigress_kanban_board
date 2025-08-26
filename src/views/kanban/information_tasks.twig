@@ -45,7 +45,7 @@
                             <div class="row mb-2">
                                 <div class="col-md-6">
                                     {{ __('Start date') }}:
-                                    {% if (kanbanTask.start_date != null and kanbanTask.start_date != '0000-00-00 00:00:00') %}
+                                    {% if (kanban.start_date != null and kanban.start_date != '0000-00-00 00:00:00') %}
                                         {{ kanban.start_date|date(__('date_time_format')) }}
                                     {% else %}
                                         {{ __('No start date') }}
