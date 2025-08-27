@@ -1,7 +1,7 @@
 {% extends 'base.twig' %}
 {% block title %}{{ __('Task Information') }}{% endblock %}
 {% block breadcrumb %}
-    <nav aria-label="breadcrumb" data-bs-theme="dark">
+    <nav aria-label="breadcrumb" data-bs-theme="{{ WEBSITE.mode }}">
         <ol class="breadcrumb" style="color: white">
             <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
             <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban">{{ __('Kanban Boards') }}</a></li>
