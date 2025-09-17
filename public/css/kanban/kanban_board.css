@@ -44,6 +44,15 @@
     text-align: center;
 }
 
+.task-item.is-draggable {
+    cursor: grab;
+}
+
+.task-item.is-locked {
+    cursor: not-allowed;
+    opacity: .85;
+}
+
 /* Hover effect for draggable tasks */
 .task-item:hover {
     transform: scale(1.05);

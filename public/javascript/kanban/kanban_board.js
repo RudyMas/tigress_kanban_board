@@ -3,47 +3,46 @@ document.addEventListener('DOMContentLoaded', function () {
     initTooltips();
 
     // Only when the user has write permissions
-    if (variables.write) {
-        const taskLists = document.querySelectorAll('.task-list');
+    const taskLists = document.querySelectorAll('.task-list');
 
-        taskLists.forEach(list => {
-            Sortable.create(list, {
-                group: 'kanban-tasks',
-                animation: 150,
-                onAdd: function (evt) {
-                    const taskItem = evt.item;
-                    const taskId = taskItem.dataset.id;
+    taskLists.forEach(list => {
+        Sortable.create(list, {
+            group: 'kanban-tasks',
+            animation: 150,
+            draggable: '.is-draggable',
+            onAdd: function (evt) {
+                const taskItem = evt.item;
+                const taskId = taskItem.dataset.id;
 
-                    const newStatusList = evt.to.closest('.task-column');
-                    const newStatus = newStatusList?.dataset.status;
+                const newStatusList = evt.to.closest('.task-column');
+                const newStatus = newStatusList?.dataset.status;
 
-                    if (!taskId || !newStatus) return;
+                if (!taskId || !newStatus) return;
 
-                    newStatusList.classList.remove('ui-droppable-active');
+                newStatusList.classList.remove('ui-droppable-active');
 
-                    fetch('/kanban/board/update/status', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: new URLSearchParams({
-                            id: taskId,
-                            status: newStatus
-                        })
+                fetch('/kanban/board/update/status', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        id: taskId,
+                        status: newStatus
                     })
-                        .then(response => {
-                            if (response.ok) {
-                                console.log('Task updated successfully');
-                                location.reload();
-                            } else {
-                                console.log('Failed to update task status');
-                            }
-                        })
-                        .catch(() => console.log('Error updating task status'));
-                }
-            });
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Task updated successfully');
+                            location.reload();
+                        } else {
+                            console.log('Failed to update task status');
+                        }
+                    })
+                    .catch(() => console.log('Error updating task status'));
+            }
         });
-    }
+    });
 
     const modalDelete = document.getElementById('modalDelete');
     if (modalDelete) {

@@ -8,6 +8,7 @@ use Repository\KanbansTasksRepo;
 use Repository\UsersRepo;
 use Service\LocalizationService;
 use Tigress\Controller;
+use Tigress\Core;
 use Twig\Error\LoaderError;
 use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
