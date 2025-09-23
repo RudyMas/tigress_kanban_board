@@ -65,8 +65,8 @@
                                             {% for kanbansTask in kanbansTasks %}
                                                 {% if kanbansTask.kanban_status_id == kanbansStatus.id %}
                                                     {% set today = "now"|date("Y-m-d H:i:s") %}
-                                                    {% set deadline = kanbansTaak.deadline ?? null %}
-                                                    {% set showred = (kanbansTask.deadline is not null and kanbansTask.deadline != '0000-00-00 00:00:00' and today > kanbansTask.deadline and kanbansStatus.deadline_check) %}
+                                                    {% set deadline = kanbansTask.deadline ?? null %}
+                                                    {% set showred = (deadline is not null and deadline != '0000-00-00 00:00:00' and today > deadline and kanbansStatus.deadline_check) %}
                                                     <li class="task-item  {{ (rights.write or in_values(_SESSION.user.id, kanbansTask.worker_ids)) ? 'is-draggable' : 'is-locked' }}"
                                                         style="background-color: {{ backcolor[kanbansTask.priority] }}; {% if showred %} border: 4px solid red{% endif %}"
                                                         data-id="{{ kanbansTask.id }}">
