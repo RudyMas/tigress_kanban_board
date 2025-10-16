@@ -5,12 +5,21 @@
         <ol class="breadcrumb" style="color: white">
             <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
             <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban">{{ __('Kanban Boards') }}</a></li>
-            <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban/board/{{ kanban.id }}">{{ kanban.tile }}: {{ kanban.name }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban/board/{{ kanban.id }}">{{ kanban.tile }}
+                    : {{ kanban.name }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">{{ __('Task Information') }}</li>
         </ol>
     </nav>
 {% endblock %}
 {% block content %}
+    {% set badgeClasses = {
+        0: 'badge bg-secondary',
+        1: 'badge bg-primary',
+        2: 'badge bg-info text-dark',
+        3: 'badge bg-warning text-dark',
+        4: 'badge bg-success',
+        5: 'badge bg-danger'
+    } %}
     <div class="container">
         <div class="row mb-2 break-out90">
             <div class="col-sm-12">
@@ -29,7 +38,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    {{ __('Status') }}: {{ statuses[kanban.status] }}
+                                    <span class="{{ badgeClasses[3] }}">{{ __('Status') }}: {{ statuses[kanban.status] }}</span>
                                 </div>
                             </div>
                             <div class="row">

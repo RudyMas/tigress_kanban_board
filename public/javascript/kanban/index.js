@@ -82,7 +82,30 @@ document.addEventListener('DOMContentLoaded', function () {
                     className: 'text-nowrap text-center',
                     width: '1%',
                     render: function (data) {
-                        return statusTexts[data] || __('Unknown');
+                        output = '';
+                        switch (data) {
+                        case 0:
+                            output = `<span class="badge bg-secondary">${statusTexts[0]}</span>`;
+                            break;
+                        case 1:
+                            output = `<span class="badge bg-primary">${statusTexts[1]}</span>`;
+                            break;
+                        case 2:
+                            output = `<span class="badge bg-info text-dark">${statusTexts[2]}</span>`;
+                            break;
+                        case 3:
+                            output = `<span class="badge bg-warning text-dark">${statusTexts[3]}</span>`;
+                            break;
+                        case 4:
+                            output = `<span class="badge bg-success">${statusTexts[4]}</span>`;
+                            break;
+                        case 5:
+                            output = `<span class="badge bg-danger">${statusTexts[5]}</span>`;
+                            break;
+                        default:
+                            output = `<span class="badge bg-secondary">${__('Unknown')}</span>`;
+                        }
+                        return output;
                     }
                 },
                 {
