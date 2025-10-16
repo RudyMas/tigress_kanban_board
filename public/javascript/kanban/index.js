@@ -130,12 +130,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             ],
             order: [[4, 'asc'], [3, 'asc']],
-            language: tigress.languageOption,
-        });
-
-        // Tooltip initialiseren bij elke redraw
-        tableKanbans.on('draw', function () {
-            initTooltips();
+            language: tigress.languageDatatables,
+            drawCallback: function () {
+                initTooltips();
+            }
         });
 
         const modalArchive = document.getElementById('modalArchive');
