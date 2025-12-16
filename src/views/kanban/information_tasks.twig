@@ -3,7 +3,7 @@
 {% block breadcrumb %}
     <nav aria-label="breadcrumb" data-bs-theme="{{ WEBSITE.mode }}">
         <ol class="breadcrumb" style="color: white">
-            <li class="breadcrumb-item"><a href="{{ BASE_URL }}/"><i class="fa fa-home"></i></a></li>
+            <li class="breadcrumb-item"><a href="{{ BASE_URL }}/home"><i class="fa fa-home"></i></a></li>
             <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban">{{ __('Kanban Boards') }}</a></li>
             <li class="breadcrumb-item"><a href="{{ BASE_URL }}/kanban/board/{{ kanban.id }}">{{ kanban.tile }}
                     : {{ kanban.name }}</a></li>
