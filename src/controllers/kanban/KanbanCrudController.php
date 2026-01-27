@@ -14,9 +14,9 @@ use Twig\Error\SyntaxError;
  * Class KanbanCrudController (PHP version 8.5)
  *
  * @author Rudy Mas <rudy.mas@rudymas.be>
- * @copyright 2025 Rudy Mas (https://rudymas.be)
+ * @copyright 2025-2026 Rudy Mas (https://rudymas.be)
  * @license https://opensource.org/licenses/GPL-3.0 GNU General Public License, version 3 (GPL-3.0)
- * @version 2025.12.09.0
+ * @version 2026.01.27.0
  * @package Controller\KanbanCrudController
  */
 class KanbanCrudController extends Controller
@@ -152,7 +152,7 @@ class KanbanCrudController extends Controller
             $kanbans->new();
         }
         $kanban = $kanbans->current();
-        $kanban->updateFromPost($_POST);
+        $kanban->updateByPost($_POST);
         $kanbans->save($kanban);
 
         TWIG->redirect('/kanban');
@@ -180,7 +180,7 @@ class KanbanCrudController extends Controller
             $kanbansTasks->new();
         }
         $kanbansTask = $kanbansTasks->current();
-        $kanbansTask->updateFromPost($_POST);
+        $kanbansTask->updateByPost($_POST);
         $kanbansTasks->save($kanbansTask);
 
         TWIG->redirect('/kanban/board/' . $_POST['kanban_id']);
