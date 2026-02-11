@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let script_upload_image = '/public/scripts/tinymce_upload_image.php?folder=kanban';
     let script_list_images = '/public/scripts/tinymce_list_images.php?folder=kanban';
     let currentHost = window.location.origin + '/';
+    const dirty = warnUnsavedChanges('form');
 
     tinymce.init({
         license_key: 'gpl',
@@ -20,6 +21,9 @@ document.addEventListener('DOMContentLoaded', function () {
         relative_urls: false,
         remove_script_host: false,
         document_base_url: currentHost,
+        setup: function (editor) {
+            dirty.bindTinyMCE(editor);
+        },
         file_picker_callback: function (callback, value, meta) {
             if (meta.filetype === 'image') {
                 let dialog = document.createElement('div');
