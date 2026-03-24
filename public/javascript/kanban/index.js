@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const tableKanbans = new DataTable('#dataTableKanbans', {
             processing: true,
+            stateSave: true,
             ajax: {
                 url: url,
                 dataType: 'json'
