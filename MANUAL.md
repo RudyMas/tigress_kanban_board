@@ -103,20 +103,14 @@ Stores kanban boards. Soft-delete enabled (`active`, `deleted`, `deleted_user_id
 | Column | Type | Notes |
 |--------|------|-------|
 | `id` | int (PK, auto-increment) | |
-| `name` | varchar | Project name |
 | `tile` | varchar | Categorisation tile |
+| `name` | varchar | Project name |
 | `description` | text | Rich text (TinyMCE) |
+| `start_date` | datetime | |
+| `end_date` | datetime | |
 | `product_owner_ids` | text | JSON array of user IDs |
 | `team_member_ids` | text | JSON array of user IDs |
 | `status` | int | 0=Not started … 5=On hold |
-| `start_date` | datetime | |
-| `end_date` | datetime | |
-| `created` | datetime | Auto by Repository |
-| `created_user_id` | int | Auto by Repository |
-| `modified` | datetime | Auto by Repository |
-| `modified_user_id` | int | Auto by Repository |
-| `deleted` | datetime | Soft-delete timestamp |
-| `deleted_user_id` | int | Soft-delete user ID |
 | `active` | tinyint | Soft-delete flag (1=active) |
 
 ### `kanbans_statuses`
@@ -143,20 +137,21 @@ Multi-language names stored as separate columns.
 
 Stores individual task cards. Soft-delete enabled.
 
-| Column | Type | Notes |
-|--------|------|-------|
-| `id` | int (PK, auto-increment) | |
-| `kanban_id` | int | FK to `kanbans.id` |
-| `name` | varchar | Task title |
-| `description` | text | Rich text (TinyMCE) |
-| `remark` | text | Additional notes (TinyMCE) |
-| `kanban_status_id` | int | FK to `kanbans_statuses.id` → which column |
-| `priority` | int | 1=Critical … 9=None |
-| `worker_ids` | text | JSON array of user IDs assigned |
-| `deadline` | datetime | Target completion date |
-| `sort` | int | Order within column |
-| `active` | tinyint | |
-| *(timestamps + user audit columns)* | | |
+| Column                              | Type | Notes                                      |
+|-------------------------------------|------|--------------------------------------------|
+| `id`                                | int (PK, auto-increment) |                                            |
+| `kanban_id`                         | int | FK to `kanbans.id`                         |
+| `name`                              | varchar | Task title                                 |
+| `worker_ids`                        | text | JSON array of user IDs assigned            |
+| `description`                       | text | Rich text (TinyMCE)                        |
+| `remark`                            | text | Additional notes (TinyMCE)                 |
+| `priority`                          | int | 1=Critical … 9=None                        |
+| `kanban_status_id`                  | int | FK to `kanbans_statuses.id` → which column |
+| `deadline`                          | datetime | Target completion date                     |
+| `created`                           | datetime | Creation date of the task                  |
+| `modified`                          | datetime | Modification date of the task              |
+| `active`                            | tinyint |                                            |
+| *(timestamps + user audit columns)* | |                                            |
 
 ---
 
