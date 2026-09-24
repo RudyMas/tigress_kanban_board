@@ -2,12 +2,12 @@
   "name": "tigress/kanban-board",
   "description": "A simple to use Kanban Board for the Tigress Framework",
   "type": "library",
-  "license": "GPL-3.0-or-later",
+  "license": "Apache-2.0",
   "authors": [
     {
       "name": "Rudy Mas",
       "email": "rudy.mas@rudymas.be",
-      "homepage": "https://rudymas.be",
+      "homepage": "https://www.rudymas.be",
       "role": "Developer"
     }
   ],
@@ -16,7 +16,7 @@
     "php": ">=8.5"
   },
   "require-dev": {
-    "tigress/core": "dev-main",
+    "tigress/core": "*",
     "tigress/users": "*"
   },
   "autoload": {
